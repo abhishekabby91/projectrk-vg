@@ -15,7 +15,7 @@ const serviceCards = [
   { title: 'Warehouse & business parks', text: 'Commercial repainting for larger facilities with access and site logistics in view.', icon: Building2, href: '/services/warehouse-business-park-painting' },
   { title: 'Office & hotel wood polishing', text: 'Wood refinishing options for reception areas, doors, panelling and joinery.', icon: Target, href: '/services/commercial-wood-polishing-offices-hotels' },
   { title: 'Commercial painting in Gurugram', text: 'Project-based painting and repainting scopes for Gurugram commercial properties.', icon: MapPin, href: '/services/commercial-painting-contractors-gurugram' },
-  { title: 'Commercial painting in Noida', text: 'Commercial interior painting and repainting enquiries for Noida sites.', icon: MapPin, href: '/services/commercial-painting-contractors-noida' },,
+  { title: 'Commercial painting in Noida', text: 'Commercial interior painting and repainting enquiries for Noida sites.', icon: MapPin, href: '/services/commercial-painting-contractors-noida' },
   { title: "School & education painting", text: "Painting scopes for schools, colleges and education facilities planned around access and term dates.", icon: Building2, href: '/services/school-education-facility-painting' },
   { title: "Healthcare facility painting", text: "Painting for clinics and care facilities, subject to site protocols and specified finish requirements.", icon: Building2, href: '/services/healthcare-facility-painting-contractors' },
   { title: "Restaurant & cafe painting", text: "Venue refresh work coordinated with operating hours, fit-out trades and site access.", icon: Sparkles, href: '/services/restaurant-cafe-painting-contractors' },
