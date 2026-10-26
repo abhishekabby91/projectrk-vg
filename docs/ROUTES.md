@@ -25,8 +25,15 @@ All service routes below are rendered by `app/services/[slug]/page.tsx` using th
 | `/services/builder-developer-handover-painting` | Painting packages for developer handover |
 | `/services/commercial-staircase-corridor-painting` | Shared commercial circulation-area repainting |
 
+| `/services/basement-parking-area-painting` | Basement parking and specified shared-area painting |
+| `/services/gym-fitness-centre-painting` | Gym and fitness centre repainting |
+| `/services/bank-branch-commercial-painting` | Bank branch and financial office painting |
+| `/services/banquet-hall-event-venue-painting` | Banquet hall and event venue painting |
+| `/services/factory-office-admin-block-painting` | Factory office and non-process administrative-area painting |
+| `/services/commercial-metal-gate-railing-painting` | Commercial metal gate and railing repainting |
+
 ## Before publishing
 - Confirm all listed services and execution capacity with the business.
 - Add real contact details and connect the enquiry form.
 - Replace the placeholder canonical domain in global metadata and sitemap after the production domain is chosen.
-- Run the production build and inspect all 20 service routes before merging.
+- Run the production build and inspect all 26 service routes before merging.
