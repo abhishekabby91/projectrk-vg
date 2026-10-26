@@ -24,6 +24,13 @@ const serviceCards = [
   { title: "Coworking space painting", text: "Phased repainting for shared offices, meeting rooms and flexible work environments.", icon: Building2, href: '/services/coworking-space-painting-contractors' },
   { title: "Builder & developer handover", text: "Defined painting work packages for inspection, snagging and agreed handover scopes.", icon: ClipboardList, href: '/services/builder-developer-handover-painting' },
   { title: "Staircase & corridor painting", text: "Repainting shared circulation areas with access and phasing planned by floor or zone.", icon: Building2, href: '/services/commercial-staircase-corridor-painting' },
+
+  { title: 'Basement & parking painting', text: 'Painting for specified basement walls, columns and shared parking areas, with access planned by zone.', icon: Building2, href: '/services/basement-parking-area-painting' },
+  { title: 'Gym & fitness centre painting', text: 'Repainting for fitness studios and gyms planned around equipment, access and operating hours.', icon: Sparkles, href: '/services/gym-fitness-centre-painting' },
+  { title: 'Bank branch painting', text: 'Branch and office repainting scopes coordinated with approved access windows and site protocols.', icon: Building2, href: '/services/bank-branch-commercial-painting' },
+  { title: 'Banquet & event venue painting', text: 'Refresh work for event venues planned around bookings, access and agreed finish requirements.', icon: Sparkles, href: '/services/banquet-hall-event-venue-painting' },
+  { title: 'Factory office & admin painting', text: 'Painting for specified offices and non-process areas, subject to site requirements and access.', icon: Building2, href: '/services/factory-office-admin-block-painting' },
+  { title: 'Metal gates & railings', text: 'Repainting for specified metal elements after surface and coating condition review.', icon: Hammer, href: '/services/commercial-metal-gate-railing-painting' },
 ]
 
 const industries = ['Facility management companies', 'Commercial property owners', 'Office buildings & business parks', 'Hotels & hospitality operators', 'Developers & housing societies', 'Interior fit-out contractors', 'Retail & multi-location businesses']
