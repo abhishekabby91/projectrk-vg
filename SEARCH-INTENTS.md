@@ -2,6 +2,14 @@
 
 | Page | Primary query theme | Supporting query themes | Intent |
 |---|---|---|---|
+| Commercial painting contractors Delhi NCR | commercial painting | commercial repainting; painting BOQ | Hire a contractor |
+| Office and commercial interior painting | office repainting | office painting contractors; occupied office painting | Hire a contractor |
+| Exterior and commercial building repainting | commercial exterior painting | building repainting; exterior access planning | Hire a contractor |
+| Commercial wood polishing and refinishing | commercial wood polishing | PU polish; melamine polish | Hire a specialist |
+| Painting contractors for facility management companies | facility management painting vendor | planned property repainting | Find a service provider |
+| Painting subcontractor for interior fit-out contractors | painting subcontractor | fit-out painting package; BOQ painting | Find a subcontractor |
+| Housing society and common-area painting | society corridor painting | staircase painting; common-area repainting | Hire a contractor |
+| Commercial painting maintenance programs | planned commercial repainting | multi-site painting maintenance | Plan recurring work |
 | Hotel & hospitality painting | hotel painting contractors Delhi NCR | hotel repainting; hotel interior painting | Hire a contractor |
 | Retail & showroom painting | retail store painting Delhi NCR | showroom painting; retail fit-out painting | Hire a contractor |
 | Warehouse & business park | warehouse painting contractors Delhi NCR | business park painting; commercial facility repainting | Hire a contractor |
