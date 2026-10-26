@@ -23,6 +23,13 @@
 | Builder and developer handover painting | builder painting contractors Delhi NCR | developer painting subcontractor; handover painting | Painting packages for developer handover |
 | Commercial staircase and corridor painting | commercial corridor painting | staircase painting contractors Delhi NCR; lobby repainting | Shared commercial circulation-area repainting |
 
+| Basement and parking area painting | basement parking painting contractors Delhi NCR | parking column painting; basement wall repainting | Hire a contractor |
+| Gym and fitness centre painting | gym painting contractors Delhi NCR | fitness studio painting; gym repainting | Hire a contractor |
+| Bank branch painting | bank painting contractors Delhi NCR | bank branch repainting; financial office painting | Hire a contractor |
+| Banquet hall and event venue painting | banquet hall painting contractors Delhi NCR | event venue repainting; function hall painting | Hire a contractor |
+| Factory office and admin block painting | factory office painting contractors Delhi NCR | administrative block painting; staff-area repainting | Hire a contractor |
+| Commercial metal gate and railing painting | metal gate painting contractors Delhi NCR | railing repainting; commercial grill painting | Hire a contractor |
+
 ## Validation
 
 Before expanding this cluster, review Google Search Console query data, local search results, lead quality and impressions for each page. These query themes are hypotheses, not verified search-volume figures. Avoid near-duplicate location pages without unique, substantiated local detail.
