@@ -60,6 +60,16 @@
 - Intent: Shared commercial circulation-area repainting
 - Topics: stairwells, corridors, lobbies, floor-by-floor phasing, access
 
+
+## Additional service pages
+
+- `/services/basement-parking-area-painting` — basement parking walls and columns; confirm line marking or floor coating scope separately.
+- `/services/gym-fitness-centre-painting` — gyms and fitness studios; coordinate access, equipment movement and operating hours.
+- `/services/bank-branch-commercial-painting` — bank branches and financial offices; confirm access windows and site protocols.
+- `/services/banquet-hall-event-venue-painting` — event venues and banquet halls; plan around event calendars and drying time.
+- `/services/factory-office-admin-block-painting` — factory offices and non-process administrative spaces; no assumed specialist coating capability.
+- `/services/commercial-metal-gate-railing-painting` — specified metal gates and railings; assess corrosion and preparation needs.
+
 ## Editorial guardrails
 - Keyword clusters are hypotheses, not verified local search-volume figures.
 - Do not add fabricated project examples, certifications, guarantees, workforce numbers or client names.
