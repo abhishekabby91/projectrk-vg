@@ -9,6 +9,14 @@ All service routes below are rendered by `app/services/[slug]/page.tsx` using th
 | `/services/warehouse-business-park-painting` | Warehouse and business-park commercial painting |
 | `/services/commercial-wood-polishing-offices-hotels` | Commercial wood polishing for offices and hotels |
 | `/services/commercial-painting-contractors-gurugram` | Location-specific commercial painting in Gurugram |
+| `/services/commercial-painting-contractors-delhi-ncr` | Commercial painting contractors Delhi NCR |
+| `/services/office-commercial-interior-painting` | Office and commercial interior painting |
+| `/services/exterior-commercial-building-repainting` | Exterior and commercial building repainting |
+| `/services/commercial-wood-polishing-refinishing` | Commercial wood polishing and refinishing |
+| `/services/painting-contractors-facility-management` | Painting contractors for facility management companies |
+| `/services/painting-subcontractor-interior-fit-out-contractors` | Painting subcontractor for interior fit-out contractors |
+| `/services/housing-society-common-area-painting` | Housing society and common-area painting |
+| `/services/commercial-painting-maintenance-programs` | Commercial painting maintenance programs |
 | `/services/commercial-painting-contractors-noida` | Location-specific commercial painting in Noida |
 
 | `/services/school-education-facility-painting` | Education campus painting enquiries |
