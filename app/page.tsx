@@ -10,6 +10,12 @@ const serviceCards = [
   { title: 'Surface preparation', text: 'Putty, primer, minor repairs and preparation systems that support a durable finish.', icon: ShieldCheck, href: '/services/commercial-painting-contractors-delhi-ncr' },
   { title: 'Fit-out subcontracting', text: 'A practical execution partner for interior fit-out contractors and project managers.', icon: ClipboardList, href: '/services/painting-subcontractor-interior-fit-out-contractors' },
   { title: 'Planned maintenance', text: 'Recurring repainting programs for portfolios, common areas and multi-site operators.', icon: CheckIcon, href: '/services/commercial-painting-maintenance-programs' },
+  { title: 'Hotel & hospitality painting', text: 'Painting scopes for hotels and hospitality spaces planned around occupancy and access.', icon: Building2, href: '/services/hotel-hospitality-painting-contractors' },
+  { title: 'Retail & showroom painting', text: 'Store and showroom finishing aligned with fit-out schedules and opening dates.', icon: Sparkles, href: '/services/retail-showroom-painting-contractors' },
+  { title: 'Warehouse & business parks', text: 'Commercial repainting for larger facilities with access and site logistics in view.', icon: Building2, href: '/services/warehouse-business-park-painting' },
+  { title: 'Office & hotel wood polishing', text: 'Wood refinishing options for reception areas, doors, panelling and joinery.', icon: Target, href: '/services/commercial-wood-polishing-offices-hotels' },
+  { title: 'Commercial painting in Gurugram', text: 'Project-based painting and repainting scopes for Gurugram commercial properties.', icon: MapPin, href: '/services/commercial-painting-contractors-gurugram' },
+  { title: 'Commercial painting in Noida', text: 'Commercial interior painting and repainting enquiries for Noida sites.', icon: MapPin, href: '/services/commercial-painting-contractors-noida' },
 ]
 
 const industries = ['Facility management companies', 'Commercial property owners', 'Office buildings & business parks', 'Hotels & hospitality operators', 'Developers & housing societies', 'Interior fit-out contractors', 'Retail & multi-location businesses']
