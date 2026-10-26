@@ -10,6 +10,27 @@ const serviceCards = [
   { title: 'Surface preparation', text: 'Putty, primer, minor repairs and preparation systems that support a durable finish.', icon: ShieldCheck, href: '/services/commercial-painting-contractors-delhi-ncr' },
   { title: 'Fit-out subcontracting', text: 'A practical execution partner for interior fit-out contractors and project managers.', icon: ClipboardList, href: '/services/painting-subcontractor-interior-fit-out-contractors' },
   { title: 'Planned maintenance', text: 'Recurring repainting programs for portfolios, common areas and multi-site operators.', icon: CheckIcon, href: '/services/commercial-painting-maintenance-programs' },
+  { title: 'Hotel & hospitality painting', text: 'Painting scopes for hotels and hospitality spaces planned around occupancy and access.', icon: Building2, href: '/services/hotel-hospitality-painting-contractors' },
+  { title: 'Retail & showroom painting', text: 'Store and showroom finishing aligned with fit-out schedules and opening dates.', icon: Sparkles, href: '/services/retail-showroom-painting-contractors' },
+  { title: 'Warehouse & business parks', text: 'Commercial repainting for larger facilities with access and site logistics in view.', icon: Building2, href: '/services/warehouse-business-park-painting' },
+  { title: 'Office & hotel wood polishing', text: 'Wood refinishing options for reception areas, doors, panelling and joinery.', icon: Target, href: '/services/commercial-wood-polishing-offices-hotels' },
+  { title: 'Commercial painting in Gurugram', text: 'Project-based painting and repainting scopes for Gurugram commercial properties.', icon: MapPin, href: '/services/commercial-painting-contractors-gurugram' },
+  { title: 'Commercial painting in Noida', text: 'Commercial interior painting and repainting enquiries for Noida sites.', icon: MapPin, href: '/services/commercial-painting-contractors-noida' },
+  { title: 'Facility management painting', text: 'Planned and reactive painting scopes for facility teams managing commercial properties.', icon: Building2, href: '/services/painting-contractors-facility-management' },
+  { title: 'Housing society common-area painting', text: 'Painting scopes for lobbies, corridors, staircases and shared community spaces.', icon: Building2, href: '/services/housing-society-common-area-painting' },
+  { title: "School & education painting", text: "Painting scopes for schools, colleges and education facilities planned around access and term dates.", icon: Building2, href: '/services/school-education-facility-painting' },
+  { title: "Healthcare facility painting", text: "Painting for clinics and care facilities, subject to site protocols and specified finish requirements.", icon: Building2, href: '/services/healthcare-facility-painting-contractors' },
+  { title: "Restaurant & cafe painting", text: "Venue refresh work coordinated with operating hours, fit-out trades and site access.", icon: Sparkles, href: '/services/restaurant-cafe-painting-contractors' },
+  { title: "Coworking space painting", text: "Phased repainting for shared offices, meeting rooms and flexible work environments.", icon: Building2, href: '/services/coworking-space-painting-contractors' },
+  { title: "Builder & developer handover", text: "Defined painting work packages for inspection, snagging and agreed handover scopes.", icon: ClipboardList, href: '/services/builder-developer-handover-painting' },
+  { title: "Staircase & corridor painting", text: "Repainting shared circulation areas with access and phasing planned by floor or zone.", icon: Building2, href: '/services/commercial-staircase-corridor-painting' },
+
+  { title: 'Basement & parking painting', text: 'Painting for specified basement walls, columns and shared parking areas, with access planned by zone.', icon: Building2, href: '/services/basement-parking-area-painting' },
+  { title: 'Gym & fitness centre painting', text: 'Repainting for fitness studios and gyms planned around equipment, access and operating hours.', icon: Sparkles, href: '/services/gym-fitness-centre-painting' },
+  { title: 'Bank branch painting', text: 'Branch and office repainting scopes coordinated with approved access windows and site protocols.', icon: Building2, href: '/services/bank-branch-commercial-painting' },
+  { title: 'Banquet & event venue painting', text: 'Refresh work for event venues planned around bookings, access and agreed finish requirements.', icon: Sparkles, href: '/services/banquet-hall-event-venue-painting' },
+  { title: 'Factory office & admin painting', text: 'Painting for specified offices and non-process areas, subject to site requirements and access.', icon: Building2, href: '/services/factory-office-admin-block-painting' },
+  { title: 'Metal gates & railings', text: 'Repainting for specified metal elements after surface and coating condition review.', icon: Hammer, href: '/services/commercial-metal-gate-railing-painting' },
 ]
 
 const industries = ['Facility management companies', 'Commercial property owners', 'Office buildings & business parks', 'Hotels & hospitality operators', 'Developers & housing societies', 'Interior fit-out contractors', 'Retail & multi-location businesses']
