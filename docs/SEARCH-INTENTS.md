@@ -24,4 +24,6 @@ This is an initial intent hypothesis, not verified search-volume data. Validate 
 - Add city pages only when there is meaningful local information, actual service availability and distinct project evidence.
 - No small residential repair targeting in the main navigation or homepage.
 - Do not claim keyword volume, ranking or traffic without current measurement.
-- Link service pages to relevant industries and projects; link industry pages to the exact service scopes used by that buyer.
+- Link service pages to relevant industries and adjacent services; link each industry page to the service scopes relevant to that buyer.
+- Keep one canonical page per intent. Former long-tail service URLs must redirect to the closest canonical page and must not remain as separately generated pages.
+- Keep `/projects` out of the sitemap and search index until verified case studies are available.
