@@ -76,22 +76,7 @@ const pages: Record<string, ServicePageData> = {
       { question: 'How is completed work inspected?', answer: 'Inspection criteria should be agreed for the project, including finish appearance, coverage, snag items and area-wise handover.' },
     ],
   },
-  'commercial-painting-contractors-delhi-ncr': {
-    label: 'Commercial painting',
-    title: 'Commercial Painting Contractors in Delhi NCR',
-    description: 'Commercial painting execution for offices, hotels, managed properties and commercial buildings across Delhi NCR.',
-    intro: 'A project-focused painting execution partner for commercial properties and facility teams across Delhi NCR.',
-    scope: ['Commercial interior and exterior painting scopes', 'Surface preparation and finish coats defined in the BOQ', 'Site-led quotation and work-package planning', 'Direct project engagement or specialist subcontracting'],
-    workflow: ['Share the property and scope details.', 'Review site conditions and access.', 'Confirm quantities, materials and quotation.', 'Coordinate execution and handover.'],
-    faqs: [
-      { question: 'Which areas of Delhi NCR are considered?', answer: 'Delhi, Gurugram, Noida, Greater Noida, Ghaziabad and Faridabad are the initial focus, subject to project-specific availability.' },
-      { question: 'Can you quote from a BOQ?', answer: 'A BOQ can be reviewed, with site verification where necessary.' },
-      { question: 'Do you handle commercial and industrial projects?', answer: 'Commercial property projects can be considered. Industrial work is reviewed only where the technical scope and safety requirements match the team capability.' },
-      { question: 'Can you work as a subcontractor?', answer: 'Specialist painting and finishing work packages can be discussed with facility providers and commercial project contractors.' },
-      { question: 'Do you provide annual maintenance contracts?', answer: 'Recurring maintenance arrangements can be discussed after defining sites, service scope, inspection frequency and response expectations.' },
-    ],
-  },
-  'office-commercial-interior-painting': {
+'office-commercial-interior-painting': {
     label: 'Commercial interiors',
     title: 'Office & Commercial Interior Painting',
     description: 'Interior repainting for offices, hotels, retail environments and shared commercial spaces in Delhi NCR.',
@@ -106,22 +91,7 @@ const pages: Record<string, ServicePageData> = {
       { question: 'How do you minimise disruption?', answer: 'The work plan can address access windows, protection, sequencing and handover with the building representative.' },
     ],
   },
-  'exterior-commercial-building-repainting': {
-    label: 'Building exteriors',
-    title: 'Exterior & Commercial Building Repainting',
-    description: 'Exterior repainting scopes for commercial buildings, planned around surface condition, access and site operations.',
-    intro: 'Exterior repainting begins with a realistic review of substrate condition, access, weather windows and surrounding site operations.',
-    scope: ['Condition review before final scope', 'Primer and coating system coordination', 'Access and protection planning', 'Phased work for active commercial premises'],
-    workflow: ['Review the building and access conditions.', 'Inspect surface condition and preparation needs.', 'Agree coating system, access and programme.', 'Execute and inspect the approved areas.'],
-    faqs: [
-      { question: 'Is a site inspection required?', answer: 'A site inspection is strongly recommended because access, surface condition and quantities affect the quotation.' },
-      { question: 'Do you arrange façade access equipment?', answer: 'Access arrangements must be discussed and expressly included or excluded in the quotation.' },
-      { question: 'Can exterior work be phased?', answer: 'Phasing can be planned by elevation or building section, subject to access and safety constraints.' },
-      { question: 'Are structural repairs included?', answer: 'Structural repairs and construction are not part of the stated finishing scope. Any minor surface preparation must be clearly specified.' },
-      { question: 'How are weather delays handled?', answer: 'Weather-sensitive work windows and programme assumptions should be recorded in the project schedule.' },
-    ],
-  },
-  'commercial-wood-polishing-refinishing': {
+'commercial-wood-polishing-refinishing': {
     label: 'Wood finishes',
     title: 'Commercial Wood Polishing & Refinishing',
     description: 'Wood polishing and refinishing for commercial joinery, doors, panelling and reception areas.',
@@ -136,22 +106,7 @@ const pages: Record<string, ServicePageData> = {
       { question: 'Can you provide a written scope?', answer: 'The agreed scope should list the surfaces, preparation, finish system, sample approval and exclusions.' },
     ],
   },
-  'painting-contractors-facility-management': {
-    label: 'For facility teams',
-    title: 'Painting Support for Facility Management Companies',
-    description: 'Specialist commercial painting and finishing work packages for facility management providers in Delhi NCR.',
-    intro: 'Facility teams may need a specialist finishing contractor for planned repainting, reactive work packages or recurring property requirements. The scope, access, approvals and handover are agreed before mobilisation.',
-    scope: ['Planned and reactive repainting scopes', 'Site-wise scope notes and handover requirements', 'Coordination with property operations teams', 'Multi-property requirements reviewed case by case'],
-    workflow: ['Share site list, scope and vendor requirements.', 'Review technical, access and compliance prerequisites.', 'Agree commercial terms, work order and programme.', 'Complete the package with agreed inspection and handover records.'],
-    faqs: [
-      { question: 'Can Vibroxi be considered as a specialist subcontractor?', answer: 'Painting and finishing work packages can be discussed with facility providers after reviewing vendor onboarding and delivery requirements.' },
-      { question: 'Can you support multiple sites?', answer: 'Multi-site work is reviewed based on geography, volume, sequencing and available mobilisation capacity.' },
-      { question: 'Can you work under the facility manager’s site procedures?', answer: 'Site induction, permits, access rules and reporting expectations should be reviewed before confirming the work.' },
-      { question: 'Do you have vendor registration documents?', answer: 'Required registrations and compliance documents must be confirmed with the company before any vendor qualification claim is made.' },
-      { question: 'Can recurring work be scheduled?', answer: 'Recurring work can be discussed where inspection frequency, scope boundaries and response expectations are agreed.' },
-    ],
-  },
-  'painting-subcontractor-interior-fit-out-contractors': {
+'painting-subcontractor-interior-fit-out-contractors': {
     label: 'For fit-out teams',
     title: 'Painting & Finishing Subcontractor',
     description: 'Painting and finishing execution support for commercial fit-out contractors and project managers in Delhi NCR.',
@@ -166,22 +121,7 @@ const pages: Record<string, ServicePageData> = {
       { question: 'Do you accept projects outside Delhi NCR?', answer: 'Projects outside the initial region can be reviewed individually based on size, schedule and mobilisation feasibility.' },
     ],
   },
-  'housing-society-common-area-painting': {
-    label: 'Common areas',
-    title: 'Common-Area Painting for Managed Properties',
-    description: 'Common-area repainting for managed properties and residential societies in Delhi NCR, subject to project scope.',
-    intro: 'Shared lobbies, corridors and other managed-property areas can be considered as defined repainting work packages. The main focus remains property-level and larger scopes rather than individual household repairs.',
-    scope: ['Lobbies, corridors and staircases', 'Parking and shared amenity areas where suitable', 'Area-wise scope definition and colour schedule', 'Phased access planning with property management'],
-    workflow: ['Identify the property and shared areas.', 'Review site condition and access restrictions.', 'Prepare area-wise scope and quotation.', 'Agree resident communication, phasing and handover.'],
-    faqs: [
-      { question: 'Can the work cover multiple blocks?', answer: 'Multi-block requirements can be reviewed using a site list, approximate quantities and proposed phasing.' },
-      { question: 'Can work be scheduled in phases?', answer: 'Yes, where access and site operations permit a phased programme.' },
-      { question: 'Can a committee receive an itemised quotation?', answer: 'An itemised scope can be discussed using measurable areas and specified inclusions and exclusions.' },
-      { question: 'Are individual flat painting jobs the focus?', answer: 'The website prioritises larger property-level scopes and managed common areas rather than small individual household jobs.' },
-      { question: 'Can the project be combined with recurring maintenance?', answer: 'A recurring arrangement can be discussed after the property scope and practical service expectations are defined.' },
-    ],
-  },
-  'commercial-painting-maintenance-programs': {
+'commercial-painting-maintenance-programs': {
     label: 'Recurring work',
     title: 'Commercial Painting Maintenance Programmes',
     description: 'Planned repainting and recurring finishing work packages for commercial properties and facility teams.',
@@ -198,7 +138,8 @@ const pages: Record<string, ServicePageData> = {
   },
 }
 
-export function generateStaticParams() { return Object.keys(pages).map((slug) => ({ slug })) }
+const canonicalServiceSlugs = ['commercial-painting', 'building-repainting', 'wood-polishing', 'surface-preparation-finishing']
+export function generateStaticParams() { return canonicalServiceSlugs.map((slug) => ({ slug })) }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
