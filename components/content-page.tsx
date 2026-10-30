@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { Check, ArrowRight } from 'lucide-react'
 import { ButtonLink, EnquiryForm, Footer, Header, SectionIntro } from '@/components/site-shell'
 
