@@ -20,6 +20,15 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: 'Commercial Finishing & Property Maintenance | Vibroxi' },
 }
 export const viewport: Viewport = { colorScheme: 'light', themeColor: '#183c31' }
+
+const structuredData = siteUrl ? {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: siteName, url: siteUrl, description: 'Commercial painting, building repainting, wood polishing and finishing support for commercial property teams in Delhi NCR.' },
+    { '@type': 'WebSite', '@id': `${siteUrl}/#website`, name: siteName, url: siteUrl, publisher: { '@id': `${siteUrl}/#organization` } },
+  ],
+} : null
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en-IN"><body className="antialiased">{children}{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
+  return <html lang="en-IN"><body className="antialiased">{structuredData && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />}{children}{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
 }
