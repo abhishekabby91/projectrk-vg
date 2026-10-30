@@ -138,6 +138,28 @@ const pages: Record<string, ServicePageData> = {
   },
 }
 
+const relatedByService: Record<string, { label: string; href: string }[]> = {
+  'commercial-painting': [
+    { label: 'Building repainting', href: '/services/building-repainting' },
+    { label: 'Hotels & hospitality', href: '/industries/hotels-hospitality' },
+    { label: 'Commercial property owners', href: '/industries/commercial-property' },
+  ],
+  'building-repainting': [
+    { label: 'Commercial painting', href: '/services/commercial-painting' },
+    { label: 'Commercial property owners', href: '/industries/commercial-property' },
+    { label: 'Planned maintenance contracts', href: '/annual-maintenance-contracts' },
+  ],
+  'wood-polishing': [
+    { label: 'Hotels & hospitality', href: '/industries/hotels-hospitality' },
+    { label: 'Commercial painting', href: '/services/commercial-painting' },
+    { label: 'Surface preparation & finishing', href: '/services/surface-preparation-finishing' },
+  ],
+  'surface-preparation-finishing': [
+    { label: 'Commercial painting', href: '/services/commercial-painting' },
+    { label: 'Facility management teams', href: '/industries/facility-management' },
+    { label: 'Specialist subcontracting', href: '/facility-management-subcontracting' },
+  ],
+}
 const canonicalServiceSlugs = ['commercial-painting', 'building-repainting', 'wood-polishing', 'surface-preparation-finishing']
 export function generateStaticParams() { return canonicalServiceSlugs.map((slug) => ({ slug })) }
 
@@ -159,5 +181,5 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Project workflow</p><h2 className="mt-3 font-serif text-3xl md:text-4xl">From site review to handover</h2><ol className="mt-8 grid gap-5">{page.workflow.map((step,i)=><li key={step} className="flex gap-4 border-b border-[#ddd8cd] pb-4"><span className="font-serif text-xl text-[#a17b3f]">0{i+1}</span><span className="text-sm leading-6 text-[#5d655f]">{step}</span></li>)}</ol></article>
       <section><h2 className="font-serif text-3xl md:text-4xl">Questions about this service</h2><div className="mt-6 grid gap-3">{page.faqs.map((faq)=><details key={faq.question} className="border-b border-[#ddd8cd] py-4"><summary className="cursor-pointer text-sm font-semibold">{faq.question}</summary><p className="mt-3 text-sm leading-6 text-[#5d655f]">{faq.answer}</p></details>)}</div></section>
     </div><aside id="contact" className="h-fit rounded-sm bg-white p-6 shadow-sm md:p-8"><h2 className="font-serif text-3xl">Request a project discussion</h2><p className="mb-7 mt-3 text-sm leading-6 text-[#68716b]">Share the site, approximate quantities, service requirement and target programme. Availability and scope are confirmed after review.</p><EnquiryForm/></aside></section>
-    <section className="border-t border-[#ddd8cd] px-5 py-16"><div className="mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between"><div><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Related information</p><h2 className="mt-2 font-serif text-3xl">Explore other commercial work</h2></div><Link href="/industries" className="inline-flex items-center gap-2 text-sm font-semibold text-[#a17b3f]">Industries we support <ArrowRight size={16}/></Link></div></section><Footer/></main>
+    <section className="border-t border-[#ddd8cd] px-5 py-16"><div className="mx-auto max-w-7xl"><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Related information</p><h2 className="mt-2 font-serif text-3xl">Explore relevant work and property types</h2><div className="mt-6 flex flex-wrap gap-x-7 gap-y-3">{(relatedByService[slug] ?? []).map((item)=><Link key={item.href} href={item.href} className="text-sm font-semibold text-[#183c31] underline decoration-[#c9a66b] underline-offset-4">{item.label}</Link>)}</div></div></section><Footer/></main>
 }
