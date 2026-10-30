@@ -46,6 +46,27 @@ const sectors: Record<string, { title: string; description: string; intro: strin
   },
 }
 
+const relatedBySector: Record<string, { label: string; href: string }[]> = {
+  'facility-management': [
+    { label: 'Commercial painting', href: '/services/commercial-painting' },
+    { label: 'Surface preparation & finishing', href: '/services/surface-preparation-finishing' },
+    { label: 'Subcontracting arrangements', href: '/facility-management-subcontracting' },
+  ],
+  'hotels-hospitality': [
+    { label: 'Commercial painting', href: '/services/commercial-painting' },
+    { label: 'Wood polishing & refinishing', href: '/services/wood-polishing' },
+    { label: 'Building repainting', href: '/services/building-repainting' },
+  ],
+  'commercial-property': [
+    { label: 'Building repainting', href: '/services/building-repainting' },
+    { label: 'Commercial painting', href: '/services/commercial-painting' },
+    { label: 'Planned maintenance contracts', href: '/annual-maintenance-contracts' },
+  ],
+  'industrial-facilities': [
+    { label: 'Surface preparation & finishing', href: '/services/surface-preparation-finishing' },
+    { label: 'Commercial painting', href: '/services/commercial-painting' },
+  ],
+}
 export function generateStaticParams() { return Object.keys(sectors).map((slug) => ({ slug })) }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -57,5 +78,5 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   const { slug } = await params
   const page = sectors[slug]
   if (!page) notFound()
-  return <ContentPage eyebrow="Industries" title={page.title} intro={page.intro} sections={page.sections} cta="Discuss a commercial requirement"/>
+  return <ContentPage eyebrow="Industries" title={page.title} intro={page.intro} sections={page.sections} relatedLinks={relatedBySector[slug] ?? []} cta="Discuss a commercial requirement"/>
 }
