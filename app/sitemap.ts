@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { absoluteUrl, siteUrl } from '@/lib/site'
 
+// Only canonical, public and indexable pages belong in this list.
+// The projects page stays out until verified case studies are ready.
 const paths = [
   '/',
   '/industries',
@@ -9,7 +11,6 @@ const paths = [
   '/industries/commercial-property',
   '/industries/industrial-facilities',
   '/project-delivery',
-  '/projects',
   '/locations/delhi-ncr',
   '/contact',
   '/annual-maintenance-contracts',
