@@ -1,2 +1,26 @@
 import type { MetadataRoute } from 'next'
-export default function sitemap(): MetadataRoute.Sitemap { const base = 'https://example.com'; const paths = ['', '/industries', '/project-delivery', '/projects', '/coverage', '/contact', '/services/commercial-painting-contractors-delhi-ncr', '/services/office-commercial-interior-painting', '/services/exterior-commercial-building-repainting', '/services/commercial-wood-polishing-refinishing', '/services/painting-contractors-facility-management', '/services/painting-subcontractor-interior-fit-out-contractors', '/services/housing-society-common-area-painting', '/services/commercial-painting-maintenance-programs']; return paths.map((path) => ({ url: `${base}${path}`, lastModified: new Date() })) }
+import { absoluteUrl, siteUrl } from '@/lib/site'
+
+const paths = [
+  '/',
+  '/industries',
+  '/industries/facility-management',
+  '/industries/hotels-hospitality',
+  '/industries/commercial-property',
+  '/industries/industrial-facilities',
+  '/project-delivery',
+  '/projects',
+  '/locations/delhi-ncr',
+  '/contact',
+  '/annual-maintenance-contracts',
+  '/facility-management-subcontracting',
+  '/services/commercial-painting',
+  '/services/building-repainting',
+  '/services/wood-polishing',
+  '/services/surface-preparation-finishing',
+]
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  if (!siteUrl) return []
+  return paths.map((path) => ({ url: absoluteUrl(path) }))
+}
