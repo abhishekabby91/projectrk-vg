@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowRight, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { ButtonLink, EnquiryForm, Footer, Header } from '@/components/site-shell'
 import { canonicalMetadata } from '@/lib/site'
 
