@@ -1,9 +1,8 @@
 export const siteName = 'Vibroxi'
 
 /**
- * Set NEXT_PUBLIC_SITE_URL to the verified production origin before deployment.
- * Example: https://www.your-domain.com
- * No production domain is assumed in source code.
+ * Keep the brand and production domain provisional until the owner confirms them.
+ * Set NEXT_PUBLIC_SITE_URL to the verified production origin before launch.
  */
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
@@ -13,6 +12,7 @@ export function absoluteUrl(path: string) {
   return new URL(path.startsWith('/') ? path : `/${path}`, siteUrl).toString()
 }
 
+/** Do not emit relative canonicals that Next.js could resolve against localhost. */
 export function canonicalMetadata(path: string) {
-  return { alternates: { canonical: absoluteUrl(path) } }
+  return siteUrl ? { alternates: { canonical: absoluteUrl(path) } } : {}
 }
