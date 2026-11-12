@@ -18,6 +18,7 @@ const paths = [
   '/locations/greater-noida',
   '/locations/ghaziabad',
   '/locations/faridabad',
+  '/pricing',
   '/contact',
   '/annual-maintenance-contracts',
   '/facility-management-subcontracting',
