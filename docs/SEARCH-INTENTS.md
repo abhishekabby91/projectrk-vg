@@ -27,3 +27,12 @@ This is an initial intent hypothesis, not verified search-volume data. Validate 
 - Link service pages to relevant industries and adjacent services; link each industry page to the service scopes relevant to that buyer.
 - Keep one canonical page per intent. Former long-tail service URLs must redirect to the closest canonical page and must not remain as separately generated pages.
 - Keep `/projects` out of the sitemap and search index until verified case studies are available.
+
+## Pricing intent addition
+
+| Canonical URL | Primary audience | Primary intent | Page purpose |
+|---|---|---|---|
+| /pricing | Commercial property buyers, facility managers, procurement and project contractors | Commercial painting / finishing pricing and quotation Delhi NCR | Explain scope-based pricing factors, measurement basis, quotation inclusions and how to submit a BOQ |
+
+The pricing page should link to all four canonical services. Do not publish a fixed Vibroxi per-square-foot price unless the business has approved a current rate card and can state the measurement basis, material grade, coats, preparation, taxes and exclusions accurately.
+
