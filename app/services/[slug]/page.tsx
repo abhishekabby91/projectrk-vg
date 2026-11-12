@@ -138,6 +138,55 @@ const pages: Record<string, ServicePageData> = {
   },
 }
 
+
+type ServiceExpansion = { searchFamily: string[]; buyerGuidance: { title: string; body: string }[]; pricingFactors: string[]; exclusions: string }
+const serviceExpansion: Record<string, ServiceExpansion> = {
+  'commercial-painting': {
+    searchFamily: ['commercial painting contractor Delhi NCR', 'office painting contractor', 'corporate office painting', 'hotel and hospitality painting', 'retail showroom painting', 'commercial interior painting', 'commercial exterior painting', 'warehouse and business park painting'],
+    buyerGuidance: [
+      { title: 'Office and corporate interior painting', body: 'Office repainting may cover workstations, cabins, meeting rooms, reception areas, corridors and ceilings. The work plan should identify occupied zones, furniture and equipment protection, colour approvals, permitted hours and floor-wise handover.' },
+      { title: 'Hotel, retail and customer-facing spaces', body: 'Hotels, showrooms and public-facing premises may need tighter coordination around guests, customers, opening hours, odour sensitivity and access. The quotation should identify the work windows and areas released by the operator.' },
+      { title: 'Commercial exterior and shared-area painting', body: 'External walls, entrances, staircases, lobbies and common areas require a separate review of surface condition, exposure, access and protection. Façade access arrangements must be assessed and stated clearly.' },
+      { title: 'BOQ-based painting packages', body: 'For fit-out contractors and facility teams, the work can be reviewed against drawings, a paint schedule, quantities and the agreed sequence. Any assumptions about coats, primer, putty, materials and touch-ups should be documented.' },
+    ],
+    pricingFactors: ['Paintable wall and ceiling area, not simply the carpet area of the office', 'Paint grade, colour change, primer, putty and number of coats', 'Furniture movement, masking and protection in occupied areas', 'Height, access, work-at-night requirements and phased floor handovers'],
+    exclusions: 'Waterproofing, leak rectification, major plaster or civil repairs, specialist coatings and access systems are not assumed to be included. Each must be assessed and listed separately if required.',
+  },
+  'building-repainting': {
+    searchFamily: ['commercial building repainting Delhi NCR', 'exterior building painting contractor', 'commercial façade repainting', 'office building exterior painting', 'apartment and managed property common-area repainting', 'commercial building maintenance painting'],
+    buyerGuidance: [
+      { title: 'Exterior wall and façade repainting', body: 'A building repainting scope starts with the existing coating, substrate, exposure, visible cracks, peeling and dampness indicators. The inspection records what is paint preparation and what may require a separate repair specialist.' },
+      { title: 'Lobbies, corridors and staircase repainting', body: 'Common-area painting can be measured by floor, zone or building. The plan should cover resident or tenant movement, signage, floor protection, access to lifts and the sequence for returning each area to use.' },
+      { title: 'Multi-building and portfolio repainting', body: 'For facility managers and asset owners, a site register with building age, approximate area, condition photographs, access details and priority helps organise a phased BOQ and mobilisation plan.' },
+      { title: 'Weather and access planning', body: 'Exterior work is affected by weather windows, height, obstructions, neighbouring properties and the selected access method. These factors should be reviewed before committing to programme or price.' },
+    ],
+    pricingFactors: ['Building height, elevation area and access method', 'Surface preparation, crack treatment and coating removal where specified', 'Weather exposure, product specification and coat system', 'Scaffolding, lift, barricading, safety and public-area protection requirements'],
+    exclusions: 'Structural repairs, waterproofing, leak source correction, major plaster replacement and specialist rope-access arrangements are not included unless separately assessed, confirmed and priced.',
+  },
+  'wood-polishing': {
+    searchFamily: ['commercial wood polishing Delhi NCR', 'office woodwork polishing', 'hotel wood polishing contractor', 'wood door and frame refinishing', 'reception counter wood finish', 'commercial joinery refinishing', 'wood panelling restoration'],
+    buyerGuidance: [
+      { title: 'Doors, frames and fixed joinery', body: 'A commercial wood polishing schedule should list each surface, dimensions, number of faces, existing finish and visible damage. Door leaves, frames and architraves may need separate quantities.' },
+      { title: 'Hotel interiors and reception woodwork', body: 'Reception counters, wall panelling and guest-facing joinery require agreement on sheen, colour, sample approval, ventilation, protection and the time each area can remain unavailable.' },
+      { title: 'Existing finish restoration', body: 'Re-polishing is not always the same as applying a new finish. Existing varnish, lacquer, melamine or other coating may need testing, removal or additional preparation before a compatible system is selected.' },
+      { title: 'Finish selection and sample approval', body: 'The final system depends on substrate, use, appearance, product compatibility and confirmed application capability. A sample panel or test area can help approve colour and sheen before larger work.' },
+    ],
+    pricingFactors: ['Measured surface area or item schedule, including visible faces and edges', 'New woodwork versus previously coated or damaged surfaces', 'Sanding, stripping, filling, stain matching and sample requirements', 'Finish specification, number of coats, ventilation and area access'],
+    exclusions: 'Furniture manufacturing, carpentry replacement, major joinery repairs and any specialist PU, melamine, lacquer or Duco system are not promised by default. Product and application capability must be confirmed for the specific project.',
+  },
+  'surface-preparation-finishing': {
+    searchFamily: ['commercial surface preparation contractor', 'wall surface preparation before painting', 'commercial paint scraping and sanding', 'putty and primer application contractor', 'commercial coating preparation', 'surface finishing contractor Delhi NCR'],
+    buyerGuidance: [
+      { title: 'Substrate and existing coating review', body: 'Concrete, plaster, gypsum, wood and metal need different preparation approaches. Existing coating adhesion, contamination, moisture and damage should be reviewed before a method is selected.' },
+      { title: 'Preparation before repainting', body: 'The written scope should distinguish scraping of loose paint, sanding, minor filling, dust removal, primer and finish coats. The number and extent of preparation stages depend on the observed surface.' },
+      { title: 'Coordination with fit-out and maintenance teams', body: 'Preparation and finishing packages often sit between other trades. Agree when the area will be released, what repairs another contractor completes, who protects finished work and how readiness is signed off.' },
+      { title: 'Inspection and acceptance', body: 'Agree sample areas, surface readiness, finish appearance, coverage, snag categories and handover records before the work starts. This reduces ambiguity between the BOQ and site conditions.' },
+    ],
+    pricingFactors: ['Substrate type, existing coating and condition', 'Preparation depth and quantity of damaged or loose areas', 'Primer and finish specification and number of application stages', 'Dust containment, protection, access and trade coordination'],
+    exclusions: 'Major plaster replacement, structural or civil repairs, damp-proofing, leak correction, hazardous-material removal and specialist industrial coating preparation are outside the default scope unless specifically assessed and confirmed.',
+  },
+}
+
 const relatedByService: Record<string, { label: string; href: string }[]> = {
   'commercial-painting': [
     { label: 'Building repainting', href: '/services/building-repainting' },
@@ -179,6 +228,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     <section className="mx-auto grid max-w-7xl gap-14 px-5 py-20 lg:grid-cols-[1fr_.8fr] lg:px-8"><div className="grid gap-12">
       <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Potential scope</p><h2 className="mt-3 font-serif text-3xl md:text-4xl">What the work package may include</h2><div className="mt-8 grid gap-4">{page.scope.map((point)=><div key={point} className="flex gap-3 border-b border-[#ddd8cd] pb-4 text-base"><Check size={19} className="mt-0.5 shrink-0 text-[#a17b3f]"/>{point}</div>)}</div></article>
       <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Project workflow</p><h2 className="mt-3 font-serif text-3xl md:text-4xl">From site review to handover</h2><ol className="mt-8 grid gap-5">{page.workflow.map((step,i)=><li key={step} className="flex gap-4 border-b border-[#ddd8cd] pb-4"><span className="font-serif text-xl text-[#a17b3f]">0{i+1}</span><span className="text-sm leading-6 text-[#5d655f]">{step}</span></li>)}</ol></article>
+      <section className="grid gap-8">
+        <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Service detail</p><h2 className="mt-3 font-serif text-3xl md:text-4xl">Planning the right {page.label.toLowerCase()} scope</h2><div className="mt-7 grid gap-6">{(serviceExpansion[slug]?.buyerGuidance ?? []).map((item)=><div key={item.title} className="border-b border-[#ddd8cd] pb-5"><h3 className="font-serif text-xl">{item.title}</h3><p className="mt-2 text-sm leading-7 text-[#5d655f]">{item.body}</p></div>)}</div></article>
+        <article className="rounded-sm bg-[#ebe4d7] p-7"><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">What affects the estimate</p><h2 className="mt-3 font-serif text-3xl">Pricing depends on the work package.</h2><p className="mt-3 text-sm leading-7 text-[#5d655f]">The volume of work, type of surface and finish, preparation needed, material specification, site access and working schedule all affect the quotation. A single generic per-square-foot rate may not represent a mixed commercial scope.</p><ul className="mt-5 grid gap-3">{(serviceExpansion[slug]?.pricingFactors ?? []).map((factor)=><li key={factor} className="flex gap-3 text-sm leading-6"><Check size={17} className="mt-0.5 shrink-0 text-[#a17b3f]"/>{factor}</li>)}</ul><p className="mt-5 text-xs leading-6 text-[#68716b]">Scope boundary: {serviceExpansion[slug]?.exclusions}</p><Link href="/pricing" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#a17b3f] underline-offset-4">See how commercial project pricing is assessed <ArrowUpRight size={15}/></Link></article>
+        <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Related search topics</p><h2 className="mt-3 font-serif text-2xl">Common project requirements</h2><p className="mt-3 text-sm leading-7 text-[#5d655f]">{(serviceExpansion[slug]?.searchFamily ?? []).join(' · ')}</p></article>
+      </section>
       <section><h2 className="font-serif text-3xl md:text-4xl">Questions about this service</h2><div className="mt-6 grid gap-3">{page.faqs.map((faq)=><details key={faq.question} className="border-b border-[#ddd8cd] py-4"><summary className="cursor-pointer text-sm font-semibold">{faq.question}</summary><p className="mt-3 text-sm leading-6 text-[#5d655f]">{faq.answer}</p></details>)}</div></section>
     </div><aside id="contact" className="h-fit rounded-sm bg-white p-6 shadow-sm md:p-8"><h2 className="font-serif text-3xl">Request a project discussion</h2><p className="mb-7 mt-3 text-sm leading-6 text-[#68716b]">Share the site, approximate quantities, service requirement and target programme. Availability and scope are confirmed after review.</p><EnquiryForm/></aside></section>
     <section className="border-t border-[#ddd8cd] px-5 py-16"><div className="mx-auto max-w-7xl"><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Related information</p><h2 className="mt-2 font-serif text-3xl">Explore relevant work and property types</h2><div className="mt-6 flex flex-wrap gap-x-7 gap-y-3">{(relatedByService[slug] ?? []).map((item)=><Link key={item.href} href={item.href} className="text-sm font-semibold text-[#183c31] underline decoration-[#c9a66b] underline-offset-4">{item.label}</Link>)}</div></div></section><Footer/></main>
