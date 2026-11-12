@@ -1,45 +1,137 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Building2, ClipboardCheck, Factory, Hotel, Layers3, ShieldCheck } from 'lucide-react'
-import { ButtonLink, EnquiryForm, Footer, Header, SectionIntro } from '@/components/site-shell'
+import { ArrowRight, Building2, ClipboardList, Home as HomeIcon, Layers, MessageSquareText, Wrench } from 'lucide-react'
+import { ButtonLink, CallButton, CtaBand, EnquiryAside, FaqList, LinkCards, PageShell, SectionIntro, WhatsAppButton } from '@/components/site'
+import { multiWorksMessage, siteVisitMessage } from '@/lib/contact'
+import { serviceFamilies, servicesInTrade } from '@/lib/content/services'
+import { properties } from '@/lib/content/properties'
+import { cities } from '@/lib/content/locations'
+import { guides } from '@/lib/content/guides'
+import { cityHref, guideHref, propertyHref, serviceHref } from '@/lib/routes'
+import { pageMetadata } from '@/lib/seo'
 
-const services = [
-  { title: 'Commercial painting', text: 'Interior and exterior painting scopes for offices, hotels, commercial buildings and managed properties.', href: '/services/commercial-painting', icon: Layers3 },
-  { title: 'Building repainting', text: 'Planned repainting for façades, common areas and occupied properties, subject to site assessment.', href: '/services/building-repainting', icon: Building2 },
-  { title: 'Wood polishing & refinishing', text: 'Surface preparation and refinishing for doors, joinery, panelling and reception areas.', href: '/services/wood-polishing', icon: ShieldCheck },
-  { title: 'Surface preparation & finishing', text: 'Preparation and finishing work coordinated around the approved scope and material system.', href: '/services/surface-preparation-finishing', icon: ClipboardCheck },
+export const metadata: Metadata = {
+  ...pageMetadata({
+    title: 'Residential & Commercial Interior Works Contractor in Delhi NCR',
+    description: 'Vibroxi is an interior works, fit-out and finishing contractor for homes and commercial spaces in Delhi NCR — painting, wood polishing, electrical, plumbing, carpentry, false ceilings, flooring and refurbishment.',
+    path: '/',
+  }),
+  title: { absolute: 'Vibroxi | Residential & Commercial Interior Works Contractor in Delhi NCR' },
+}
+
+const steps = [
+  { icon: MessageSquareText, title: 'Share your list', text: 'Send a room-by-room list, photos, drawings or a BOQ on WhatsApp. One service or ten — all in one message.' },
+  { icon: ClipboardList, title: 'Site visit and scope', text: 'We check surfaces, existing installations and access, then confirm what each trade involves.' },
+  { icon: Layers, title: 'One itemised quotation', text: 'A single quotation broken down by room and trade, with materials, inclusions and exclusions stated.' },
+  { icon: Wrench, title: 'Sequenced execution', text: 'Trades are scheduled in the right order — electrical and plumbing before ceilings, flooring and paint.' },
 ]
-const buyers = [
-  { title: 'Facility management companies', text: 'Specialist finishing work packages and recurring site requirements.', href: '/industries/facility-management' },
-  { title: 'Commercial property owners', text: 'Planned repainting and finishing across managed buildings and portfolios.', href: '/industries/commercial-property' },
-  { title: 'Hotels & hospitality', text: 'Work planning around guest areas, operating schedules and handover requirements.', href: '/industries/hotels-hospitality' },
-  { title: 'Industrial & institutional facilities', text: 'Property finishing requirements assessed against site conditions and technical scope.', href: '/industries/industrial-facilities' },
+
+const faqs = [
+  { q: 'What kind of contractor is Vibroxi?', a: 'Vibroxi is a residential and commercial interior works, fit-out and finishing contractor. We execute interior trades — painting, wood polishing, electrical, plumbing, carpentry, false ceilings, flooring, kitchen and bathroom works — and coordinate them as one project.' },
+  { q: 'Do you provide interior design?', a: 'No. We are an execution contractor. We work from your requirements, reference images, a designer\'s drawings or a BOQ.' },
+  { q: 'Do you do construction or structural work?', a: 'No. Our work is interior and non-structural. Construction, civil, structural and architectural work must be handled by qualified specialists.' },
+  { q: 'Can I enquire about several works at once?', a: 'Yes. The enquiry form lets you select multiple services, and the quotation will list each trade separately.' },
+  { q: 'Which areas do you cover?', a: 'Delhi, Gurugram, Noida, Greater Noida, Ghaziabad and Faridabad. Site visits are confirmed after we review the location and scope.' },
 ]
 
 export default function Home() {
-  return <main className="bg-[#f6f1e8] text-[#183c31]">
-    <Header />
-    <section className="relative min-h-[680px] overflow-hidden bg-[#173d32]">
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,42,34,.96)_0%,rgba(16,54,43,.84)_52%,rgba(16,54,43,.42)_100%),url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2200&q=85')] bg-cover bg-center" />
-      <div className="relative mx-auto flex min-h-[680px] max-w-7xl items-end px-5 pb-16 pt-36 lg:px-8 lg:pb-24">
-        <div className="max-w-3xl">
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.3em] text-[#d9bd80]">Commercial execution partner · Delhi NCR</p>
-          <h1 className="max-w-3xl font-serif text-5xl leading-[1.05] tracking-tight text-white md:text-7xl">Commercial Finishing & Property Maintenance Contractors in Delhi NCR</h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-white/75">Painting, building repainting, wood polishing and finishing support for facility management companies, commercial property operators, hotels and project contractors.</p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row"><a href="https://wa.me/919312122559?text=Hello%20Vibroxi%2C%20I%20have%20a%20commercial%20project%20enquiry%20in%20Delhi%20NCR.%20Please%20let%20me%20know%20the%20next%20steps." target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-sm bg-[#c9a66b] px-5 py-3 text-sm font-semibold text-[#183c31] transition hover:bg-[#e1c58f]">WhatsApp project enquiry <ArrowRight size={16}/></a><ButtonLink href="#capabilities" dark>Explore capabilities</ButtonLink></div>
-          <div className="mt-16 grid max-w-2xl grid-cols-2 gap-5 border-t border-white/20 pt-5 text-sm text-white/70 sm:grid-cols-4"><span>Commercial painting</span><span>Building repainting</span><span>Wood refinishing</span><span>Planned maintenance</span></div>
+  const residential = properties.filter((p) => p.segment === 'residential')
+  const commercial = properties.filter((p) => p.segment === 'commercial')
+  return (
+    <PageShell>
+      <section className="relative overflow-hidden bg-[#173d32] py-16 text-white lg:py-24">
+        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:48px_48px]" />
+        <div className="relative mx-auto grid max-w-7xl gap-12 px-4 lg:px-8 lg:grid-cols-[1.15fr_.85fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[.24em] text-[#d9bd80]">Interior works · Fit-out · Finishing · Delhi NCR</p>
+            <h1 className="mt-5 font-serif text-4xl leading-[1.08] md:text-6xl">One contractor for your home and commercial interior works.</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">Painting, wood polishing, electrical, plumbing, carpentry, false ceilings, flooring, kitchens, bathrooms and refurbishment — planned together, quoted together and carried out in the right order.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <WhatsAppButton light message={multiWorksMessage}>Discuss Your Interior Project</WhatsAppButton>
+              <CallButton />
+            </div>
+            <p className="mt-6 text-sm text-white/55">For homeowners, landlords, housing societies, offices, shops, hotels, restaurants, clinics, schools and property managers.</p>
+          </div>
+          <ul className="grid grid-cols-2 gap-3 text-sm">
+            {serviceFamilies.map((f) => (
+              <li key={f.hub}><Link href={serviceHref(f.hub)} className="flex h-full items-center rounded-sm border border-white/15 bg-white/5 px-4 py-3 transition hover:border-[#c9a66b] hover:bg-white/10">{f.title}</Link></li>
+            ))}
+          </ul>
         </div>
-      </div>
-    </section>
-    <section className="border-b border-[#ded8ca] bg-[#ebe4d7]"><div className="mx-auto grid max-w-7xl gap-0 px-5 md:grid-cols-4 lg:px-8">{[['01','Site assessment'],['02','Defined work scope'],['03','Planned execution'],['04','Inspection & handover']].map(([n,t]) => <div key={n} className="flex items-center gap-4 border-b border-[#d8d0c0] py-5 last:border-0 md:border-b-0 md:border-r md:px-6 md:first:pl-0 md:last:border-0"><span className="font-serif text-2xl text-[#a17b3f]">{n}</span><span className="text-sm font-medium text-[#355448]">{t}</span></div>)}</div></section>
-    <section id="capabilities" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-      <SectionIntro eyebrow="Core capabilities" title="Specialist finishing work for commercial properties." body="Vibroxi focuses on defined finishing and maintenance scopes. We work with property teams and project contractors to understand site conditions, agree the work package and coordinate execution." />
-      <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{services.map(({title,text,href,icon:Icon}) => <Link href={href} key={title} className="group rounded-sm border border-[#ddd8cd] bg-[#fbf9f4] p-7 transition hover:-translate-y-1 hover:border-[#c9a66b]"><Icon className="mb-12 text-[#a17b3f]" size={24} strokeWidth={1.5}/><h3 className="font-serif text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-[#68716b]">{text}</p><span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#a17b3f]">Explore service <ArrowRight size={15}/></span></Link>)}</div>
-    </section>
-    <section className="bg-[#183c31] text-white"><div className="mx-auto grid max-w-7xl gap-14 px-5 py-24 lg:grid-cols-[.85fr_1.15fr] lg:px-8"><SectionIntro light eyebrow="Who we support" title="For teams responsible for commercial property outcomes." body="The website is built for organisations that need a dependable specialist contractor—not one-off household repair bookings. Engagements can be considered as a defined project or a recurring work package."/><div className="grid gap-4 sm:grid-cols-2">{buyers.map(({title,text,href},i)=><Link href={href} key={title} className="border-b border-white/15 p-5 transition hover:bg-white/5"><span className="font-serif text-lg text-[#d9bd80]">0{i+1}</span><h3 className="mt-4 font-serif text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-white/65">{text}</p><span className="mt-5 inline-flex items-center gap-2 text-sm text-[#d9bd80]">View sector <ArrowRight size={14}/></span></Link>)}</div></div></section>
-    <section className="mx-auto max-w-7xl px-5 py-24 lg:px-8"><SectionIntro eyebrow="Engagement models" title="One-time projects or planned recurring work." body="The right engagement depends on property condition, site count, scope, access and delivery capacity. We review the requirements before confirming availability or service levels."/><div className="mt-12 grid gap-5 md:grid-cols-2"><div className="border border-[#ddd8cd] bg-[#fbf9f4] p-8"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#a17b3f]">Project-based</p><h3 className="mt-4 font-serif text-3xl">Defined commercial work packages</h3><p className="mt-4 text-sm leading-7 text-[#68716b]">For building repainting, office or hotel finishing, wood refinishing and subcontracted project scopes with an agreed schedule and handover.</p><Link href="/services/commercial-painting" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#a17b3f]">Explore project services <ArrowRight size={15}/></Link></div><div className="border border-[#ddd8cd] bg-[#ebe4d7] p-8"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#a17b3f]">Recurring support</p><h3 className="mt-4 font-serif text-3xl">Planned maintenance arrangements</h3><p className="mt-4 text-sm leading-7 text-[#68716b]">For property teams considering periodic inspections, planned repainting and repeat finishing requirements under a defined scope.</p><Link href="/annual-maintenance-contracts" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#a17b3f]">Discuss maintenance scope <ArrowRight size={15}/></Link></div></div></section>
-    <section className="border-y border-[#ddd8cd] bg-[#fbf9f4] px-5 py-16 lg:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between"><div className="max-w-2xl"><p className="text-xs font-semibold uppercase tracking-[.22em] text-[#a17b3f]">Project pricing</p><h2 className="mt-3 font-serif text-3xl text-[#183c31] md:text-4xl">Every commercial site has a different scope.</h2><p className="mt-3 text-sm leading-7 text-[#68716b]">Pricing is assessed against work volume, finish specification, surface condition, access, working hours and the agreed inclusions. Review the quotation factors before sending your BOQ or site brief.</p></div><Link href="/pricing" className="inline-flex shrink-0 items-center gap-2 rounded-sm bg-[#183c31] px-5 py-3 text-sm font-semibold text-white">How project pricing works <ArrowRight size={16}/></Link></div></section>\n    <section className="bg-[#ebe4d7]"><div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 lg:grid-cols-2 lg:px-8"><div><SectionIntro eyebrow="Delivery approach" title="A clear scope before work begins." body="We start by understanding the property, surfaces, quantities, access conditions and expected handover. A written scope should identify inclusions, exclusions, materials and programme assumptions."/><div className="mt-8 grid gap-4 text-sm text-[#52655d]">{['Project brief and site details','Site assessment and quantity review','Scope, materials and quotation','Execution coordination and inspection','Handover and close-out'].map((x,i)=><div key={x} className="flex gap-3 border-b border-[#d4ccbd] pb-3"><span className="font-serif text-lg text-[#a17b3f]">0{i+1}</span>{x}</div>)}</div></div><div className="rounded-sm bg-[#dce3d8] p-8"><Factory className="text-[#a17b3f]" size={28}/><h3 className="mt-16 font-serif text-3xl">Delhi NCR launch region</h3><p className="mt-3 max-w-sm text-sm leading-6 text-[#52655d]">Initial enquiries are focused on Delhi, Gurugram, Noida, Greater Noida, Ghaziabad and Faridabad. Availability is confirmed against each project's scope and mobilisation requirements.</p><Link href="/locations/delhi-ncr" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#183c31]">Explore regional coverage <ArrowRight size={15}/></Link><div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-[#52655d]">{[["Delhi","/locations/delhi"],["Gurugram","/locations/gurugram"],["Noida","/locations/noida"],["Greater Noida","/locations/greater-noida"],["Ghaziabad","/locations/ghaziabad"],["Faridabad","/locations/faridabad"]].map(([name,href])=><Link key={href} href={href} className="underline decoration-[#c9a66b] underline-offset-4">{name}</Link>)}</div></div></div></section>
-    <section id="projects" className="mx-auto max-w-7xl px-5 py-24 lg:px-8"><SectionIntro eyebrow="Project experience" title="Evidence should come from completed work." body="We will publish case studies only when project scope, location, photographs and permission to share have been verified. Until then, this site does not imply client endorsements or completed project results."/><div className="mt-10 rounded-sm border border-dashed border-[#c9a66b] bg-[#fbf9f4] p-8"><p className="text-sm leading-7 text-[#68716b]">Project portfolio in preparation. Approved photographs and factual project summaries will be added as they become available.</p></div></section>
-    <section id="contact" className="bg-[#183c31] text-white"><div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 lg:grid-cols-[.75fr_1.25fr] lg:px-8"><div><SectionIntro light eyebrow="Commercial enquiries" title="Discuss a project or recurring requirement." body="Share the property type, location, approximate areas, required work, site count and expected start date. We can then assess whether the scope fits our current delivery capacity."/><div className="mt-8 flex items-center gap-3 text-sm text-white/65"><Hotel size={18} className="text-[#d9bd80]"/> Hotels, offices, commercial buildings and managed properties</div></div><div className="rounded-sm bg-white p-6 text-[#183c31] shadow-sm md:p-8"><EnquiryForm/></div></div></section>
-    <Footer />
-  </main>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-20">
+        <SectionIntro eyebrow="Services" title="Interior trades handled through one point of contact" body="Choose one service or combine several. Each trade has its own page explaining the scope, what affects the quotation and what is not included." />
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {serviceFamilies.map((f) => (
+            <article key={f.hub} className="flex flex-col rounded-sm border border-[#ddd8cd] bg-white p-6">
+              <h3 className="font-serif text-2xl"><Link href={serviceHref(f.hub)} className="hover:text-[#a17b3f]">{f.title}</Link></h3>
+              <p className="mt-3 text-sm leading-6 text-[#5d655f]">{f.summary}</p>
+              <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+                {servicesInTrade(f.trade).filter((s) => s.slug !== f.hub).slice(0, 4).map((s) => <li key={s.slug}><Link href={serviceHref(s.slug)} className="text-[#a17b3f] underline-offset-2 hover:underline">{s.name}</Link></li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+        <div className="mt-8"><ButtonLink href="/services">All services</ButtonLink></div>
+      </section>
+
+      <section className="bg-[#ebe4d7] py-16 lg:py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 lg:px-8 lg:grid-cols-2">
+          <div>
+            <HomeIcon className="text-[#a17b3f]" aria-hidden />
+            <h2 className="mt-3 font-serif text-3xl">Residential interior works</h2>
+            <p className="mt-3 text-sm leading-7 text-[#4f5852]">Homes, apartments, villas, rental properties and housing societies. Work planned around family routines and society rules.</p>
+            <ul className="mt-5 grid gap-2">{residential.map((p) => <li key={p.slug}><Link href={propertyHref(p.slug)} className="inline-flex items-center gap-2 text-sm font-semibold hover:text-[#a17b3f]"><ArrowRight size={14} aria-hidden />{p.name}</Link></li>)}</ul>
+            <div className="mt-6"><ButtonLink href="/residential-interior-works">Residential overview</ButtonLink></div>
+          </div>
+          <div>
+            <Building2 className="text-[#a17b3f]" aria-hidden />
+            <h2 className="mt-3 font-serif text-3xl">Commercial interior works</h2>
+            <p className="mt-3 text-sm leading-7 text-[#4f5852]">Offices, retail and showrooms, hotels, restaurants, clinics, schools and commercial property. Phased, after-hours work where needed.</p>
+            <ul className="mt-5 grid gap-2">{commercial.map((p) => <li key={p.slug}><Link href={propertyHref(p.slug)} className="inline-flex items-center gap-2 text-sm font-semibold hover:text-[#a17b3f]"><ArrowRight size={14} aria-hidden />{p.name}</Link></li>)}</ul>
+            <div className="mt-6"><ButtonLink href="/commercial-interior-works">Commercial overview</ButtonLink></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-20">
+        <SectionIntro eyebrow="How it works" title="Multiple interior works, one coordinated plan" body="Separate tradespeople often work out of sequence, so finished surfaces get damaged and redone. We plan the order of work before anyone starts." />
+        <ol className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {steps.map((s, i) => (
+            <li key={s.title} className="rounded-sm border border-[#ddd8cd] bg-white p-6">
+              <s.icon className="text-[#a17b3f]" aria-hidden />
+              <p className="mt-4 text-xs font-semibold text-[#a17b3f]">Step {i + 1}</p>
+              <h3 className="mt-1 font-serif text-xl">{s.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#5d655f]">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-8 rounded-sm border border-[#e3ded3] bg-[#fbf9f4] p-6 text-sm leading-7 text-[#4f5852]">
+          <strong className="text-[#183c31]">What we are not:</strong> Vibroxi does not provide building construction, civil or structural work, architecture or interior design. We carry out non-structural interior works to your requirements, drawings or BOQ, and we point out when something needs a structural or specialist assessment.
+        </div>
+      </section>
+
+      <section className="bg-white py-16 lg:py-20">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 lg:px-8 lg:grid-cols-[1fr_.9fr]">
+          <div className="grid content-start gap-10">
+            <SectionIntro eyebrow="Pricing" title="Clear, itemised quotations — no generic rate card" body="Interior work cost depends on area, condition, materials, access and how many trades are involved. We explain the measurement basis and list what is included and excluded." />
+            <div className="flex flex-wrap gap-3"><ButtonLink href="/pricing">How pricing works</ButtonLink><WhatsAppButton message={siteVisitMessage}>Request a Site Visit</WhatsAppButton></div>
+            <div>
+              <h2 className="font-serif text-2xl">Locations</h2>
+              <ul className="mt-4 flex flex-wrap gap-2">{cities.map((c) => <li key={c.slug}><Link href={cityHref(c.slug)} className="inline-block rounded-full border border-[#d8cfbd] px-4 py-2 text-sm hover:border-[#c9a66b]">{c.name}</Link></li>)}</ul>
+            </div>
+            <div>
+              <h2 className="font-serif text-2xl">Planning guides</h2>
+              <div className="mt-4"><LinkCards items={guides.slice(0, 3).map((g) => ({ label: g.title, href: guideHref(g.slug) }))} /></div>
+            </div>
+            <FaqList faqs={faqs} />
+          </div>
+          <EnquiryAside title="Discuss Multiple Interior Works" source="homepage" />
+        </div>
+      </section>
+
+      <CtaBand title="Tell us what your property needs." body="WhatsApp is the quickest way to reach us. Send photos and a short list — we will reply with the next step." cta="Discuss Your Interior Project" message={multiWorksMessage} />
+    </PageShell>
+  )
 }

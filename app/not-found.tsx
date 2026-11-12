@@ -1,2 +1,20 @@
 import Link from 'next/link'
-export default function NotFound() { return <main className="grid min-h-screen place-items-center bg-[#f6f1e8] px-6 text-center text-[#183c31]"><div><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Page not found</p><h1 className="mt-5 font-serif text-6xl">That page has moved.</h1><p className="mx-auto mt-5 max-w-md text-[#5d655f]">Return to the main site to explore commercial painting and finishing capabilities.</p><Link href="/" className="mt-8 inline-flex rounded-sm bg-[#183c31] px-5 py-3 text-sm font-semibold text-white">Back to homepage</Link></div></main> }
+import { PageShell } from '@/components/site'
+
+export default function NotFound() {
+  return (
+    <PageShell>
+      <section className="grid min-h-[60vh] place-items-center px-4 py-20 text-center">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Page not found</p>
+          <h1 className="mt-4 font-serif text-4xl md:text-5xl">That page has moved or does not exist.</h1>
+          <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm font-semibold">
+            <Link href="/" className="underline decoration-[#c9a66b] underline-offset-4">Home</Link>
+            <Link href="/services" className="underline decoration-[#c9a66b] underline-offset-4">Services</Link>
+            <Link href="/contact" className="underline decoration-[#c9a66b] underline-offset-4">Contact</Link>
+          </div>
+        </div>
+      </section>
+    </PageShell>
+  )
+}

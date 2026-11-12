@@ -1,34 +1,12 @@
 import type { MetadataRoute } from 'next'
+import { allRoutes } from '@/lib/routes'
 import { absoluteUrl, siteUrl } from '@/lib/site'
 
-// Only canonical, public and indexable pages belong in this list.
-// The projects page stays out until verified case studies are ready.
-const paths = [
-  '/',
-  '/industries',
-  '/industries/facility-management',
-  '/industries/hotels-hospitality',
-  '/industries/commercial-property',
-  '/industries/industrial-facilities',
-  '/project-delivery',
-  '/locations/delhi-ncr',
-  '/locations/delhi',
-  '/locations/gurugram',
-  '/locations/noida',
-  '/locations/greater-noida',
-  '/locations/ghaziabad',
-  '/locations/faridabad',
-  '/pricing',
-  '/contact',
-  '/annual-maintenance-contracts',
-  '/facility-management-subcontracting',
-  '/services/commercial-painting',
-  '/services/building-repainting',
-  '/services/wood-polishing',
-  '/services/surface-preparation-finishing',
-]
-
+// Only canonical, indexable pages. Pages for trades awaiting owner confirmation
+// (see lib/capabilities.ts) and /projects are excluded automatically.
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!siteUrl) return []
-  return paths.map((path) => ({ url: absoluteUrl(path) }))
+  return allRoutes()
+    .filter((r) => r.indexable)
+    .map((r) => ({ url: absoluteUrl(r.path) }))
 }

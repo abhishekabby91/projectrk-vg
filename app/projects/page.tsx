@@ -1,16 +1,20 @@
 import type { Metadata } from 'next'
-import { ContentPage } from '@/components/content-page'
-import { canonicalMetadata } from '@/lib/site'
+import { CtaBand, PageHero, PageShell } from '@/components/site'
+import { multiWorksMessage } from '@/lib/contact'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Project Portfolio',
-  description: 'Vibroxi project portfolio. Verified commercial painting and finishing case studies will be published with client approval.',
-  robots: { index: false, follow: true },
-  ...canonicalMetadata('/projects'),
-}
+export const metadata: Metadata = pageMetadata({
+  title: 'Projects',
+  description: 'Vibroxi project records will be published with genuine photographs and client permission.',
+  path: '/projects',
+  indexable: false,
+})
+
 export default function ProjectsPage() {
-  return <ContentPage eyebrow="Project portfolio" title="Project evidence will be published when verified." intro="This page is reserved for completed commercial work with approved photographs, accurate scope descriptions and permission to publish. No placeholder examples are presented as completed client projects." sections={[
-    { title: 'What each case study will show', body: 'A useful project record should help a property or procurement team understand the work—not just display a photograph.', items: ['Property type and location, where approved', 'Scope, surfaces and approximate quantities', 'Preparation and finish requirements', 'Phasing, access and handover notes'] },
-    { title: 'Client confidentiality', body: 'Client names, site photographs, logos and project outcomes will be published only with appropriate permission. Until then, this page remains outside the search index.' },
-  ]} cta="Discuss a commercial project"/>
+  return (
+    <PageShell>
+      <PageHero eyebrow="Projects" title="Project records will be published when verified" intro="This page is reserved for completed work with genuine photographs, accurate scope descriptions and permission to publish. No stock images or placeholder examples are presented as Vibroxi projects. It is excluded from search indexing until real case studies are added." breadcrumbs={[{ label: 'Projects', href: '/projects' }]} />
+      <CtaBand title="Ask about work similar to yours" cta="Discuss Your Interior Project" message={multiWorksMessage} />
+    </PageShell>
+  )
 }

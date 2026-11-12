@@ -62,9 +62,9 @@ These are potential buyer, channel or competitor organisations rather than direc
 
 Use their public service architecture to understand facility-management procurement, multi-site property operations and specialist vendor opportunities. Do not imply Vibroxi is an approved vendor or partner unless confirmed.
 
-## Strategic conclusion
+## Strategic conclusion (superseded 12 Nov 2026)
 
-Vibroxi should not compete with consumer platforms on low price or fast household booking, nor with integrated FM providers on the full facility-management bundle. Its strongest proposed position is a specialist commercial painting, wood polishing and finishing execution partner for defined projects, subcontracted work packages and planned recurring property work.
+The earlier conclusion positioned Vibroxi as a commercial-only painting specialist. That has been replaced by the multi-trade residential and commercial interior works positioning — see the section at the end of this document.
 
 ## Current SERP and pricing-content observations — 12 November 2026
 
@@ -88,3 +88,30 @@ Recent Delhi NCR search results show several useful patterns in pages competing 
 6. Build supporting guides only when they answer a distinct question and do not cannibalise the canonical service or pricing page.
 
 Competitor sources are research references only. Their prices, claims, case studies, customer reviews, credentials, images and guarantees are not Vibroxi evidence.
+
+
+## Multi-trade interior works research — 12 November 2026 (restructuring)
+
+Searches run: "interior works contractor Delhi NCR painting electrical plumbing false ceiling", "home renovation contractor Delhi … one contractor", "office renovation contractor Noida interior refurbishment", "false ceiling contractor Gurugram gypsum POP cost per sq ft", "wood polishing services Delhi PU melamine duco". Keyword-volume tools (Semrush) were unavailable for this session (no API units), so **no search volumes are claimed** anywhere in the docs.
+
+### What ranks
+- **Directories and marketplaces dominate** multi-trade queries: IndiaMART, MCCOY Mart, Kolo, HomeTriangle, Justdial, Urban Company, Asian Paints contractor listings. Individual contractor sites rank less often → well-structured, specific service pages have an opening.
+  - https://mccoymart.com/pro/delhi/interior-contractors · https://mccoymart.com/pro/delhi/turnkey-contractors · https://www.asianpaints.com/contractor-listing-page/delhi.html · https://hometriangle.com/delhi/wood-polish · https://m.indiamart.com/impcat/wood-polishing.html
+- **Small multi-trade firms** position as "turnkey"/"under one roof" and often *also* claim design, civil and structural work (e.g. SKF Contractor, Aarna Constructions, Renovation Wale). Vibroxi's explicit "execution only, non-structural" boundary is a differentiator, not a weakness.
+  - https://www.skfcontractor.in/about-us-interior-design-firms-in-delhi · https://aarnaconstructions.com/interior-designer-noida/ · https://clutch.co/profile/renovationwale
+- **Cost guides** (Livspace, DesignCafe, Bricknbolt, Asian Paints Beautiful Homes, Urban Company) own "false ceiling cost", "painting cost" and similar queries with rate tables. Vibroxi cost pages compete on *explanation of quotation factors* and do not publish rates.
+  - https://www.livspace.com/in/magazine/false-ceiling-cost · https://www.designcafe.com/blog/home-interiors/false-ceiling-cost/ · https://www.bricknbolt.com/blogs-and-articles/home-design-guide/false-ceiling-price
+- **Wood polishing** content is organised by finish (melamine / PU / Duco / French polish) and by item (doors, furniture). Mirrored in Vibroxi's wood pages and finish selection guide.
+  - https://www.studiomatrx.org/guides/door-polishing-refinishing-india · https://www.asianpaints.com/content/ap/en/home/blogs/melamine-polish-guide.html
+
+### Customer questions observed
+- Society renovation rules in Noida/Gurugram (NOC, deposits, permitted hours, contractor registration) → covered on apartment, Noida, Gurugram and Greater Noida pages.
+- "Can one contractor do painting, electrical, plumbing and carpentry?" → homepage, /interior-works, multi-works guide.
+- Gypsum vs POP, fan fixing in false ceilings, room height → false ceiling pages and guide.
+- Labour-only vs material-inclusive quotes; paintable vs carpet area → pricing pages.
+
+### Conversion patterns seen
+Directory "get quote" forms, WhatsApp buttons and click-to-call. Vibroxi uses WhatsApp first, a multi-service enquiry form that builds one WhatsApp message, and click-to-call as secondary. No popups or countdown urgency.
+
+### Not copied
+No competitor text, images, prices, testimonials, client names, project counts, certifications or guarantees were used.

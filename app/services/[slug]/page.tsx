@@ -1,239 +1,115 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowUpRight, Check } from 'lucide-react'
-import { ButtonLink, EnquiryForm, Footer, Header } from '@/components/site-shell'
-import { canonicalMetadata } from '@/lib/site'
+import { Check, ShieldAlert } from 'lucide-react'
+import { CallButton, CtaBand, EnquiryAside, FaqList, InlineLinks, JsonLd, PageHero, PageShell, ReviewNotice, WhatsAppButton } from '@/components/site'
+import { trades } from '@/lib/capabilities'
+import { multiWorksMessage, topicMessage } from '@/lib/contact'
+import { allServices, isServiceIndexable, servicesBySlug } from '@/lib/content/services'
+import { properties } from '@/lib/content/properties'
+import { guides } from '@/lib/content/guides'
+import { costHref, guideHref, propertyHref, resolveLink, serviceHref } from '@/lib/routes'
+import { pageMetadata, showReviewNotices } from '@/lib/seo'
+import { absoluteUrl, siteName, siteUrl } from '@/lib/site'
 
-type ServicePageData = {
-  label: string
-  title: string
-  description: string
-  intro: string
-  scope: string[]
-  workflow: string[]
-  faqs: { question: string; answer: string }[]
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return allServices.map((s) => ({ slug: s.slug }))
 }
-
-const pages: Record<string, ServicePageData> = {
-  'commercial-painting': {
-    label: 'Commercial painting',
-    title: 'Commercial Painting Contractors',
-    description: 'Commercial interior and exterior painting for offices, hotels, managed properties and commercial buildings across Delhi NCR.',
-    intro: 'Vibroxi discusses commercial painting scopes with facility teams, property operators and project contractors. Work is planned around the condition of the surfaces, site access, occupancy, finish requirements and the agreed programme.',
-    scope: ['Interior painting for offices, hotels and shared commercial areas', 'Exterior repainting and common-area work packages', 'Surface preparation, primer and finish coats as agreed in the BOQ', 'Protection, phasing and area-wise handover planning'],
-    workflow: ['Share the property type, site address, approximate area and target dates.', 'Arrange a site review to understand surface condition, access and operational constraints.', 'Confirm the BOQ, material system, inclusions, exclusions and schedule.', 'Coordinate the approved work package and review the handover areas.'],
-    faqs: [
-      { question: 'What types of commercial properties can be considered?', answer: 'Office buildings, hotels, commercial premises and managed properties can be considered after reviewing the location, work scope and delivery requirements.' },
-      { question: 'Can painting be planned while a building remains occupied?', answer: 'Phasing can be discussed around access windows, operating hours, protection requirements and the areas released by the property team.' },
-      { question: 'Can Vibroxi work from an existing BOQ?', answer: 'Yes. An existing BOQ, drawings or finish schedule can be reviewed as part of the scope discussion. Site conditions may still need verification.' },
-      { question: 'Does the quotation include materials and labour?', answer: 'The quotation should clearly state whether materials, labour, access equipment, protection and disposal are included. These items are confirmed for each project.' },
-      { question: 'Can a commercial painting project be split into phases?', answer: 'A project can be discussed by floor, zone, building or work package, subject to site access and the agreed programme.' },
-    ],
-  },
-  'building-repainting': {
-    label: 'Building repainting',
-    title: 'Commercial Building Repainting',
-    description: 'Building repainting scopes for commercial property owners and facility managers in Delhi NCR, planned around access and site conditions.',
-    intro: 'Building repainting requires more than selecting a paint finish. Surface condition, access, weather exposure, protection, occupied areas and the handover sequence all affect the work plan.',
-    scope: ['Exterior and façade repainting where access and safety can be arranged', 'Common-area repainting for corridors, lobbies and shared spaces', 'Surface preparation and coating systems defined in the approved scope', 'Phased execution for operating commercial properties'],
-    workflow: ['Review building type, height, surface condition and access arrangements.', 'Inspect representative areas and confirm preparation requirements.', 'Document coating system, quantities, protection and exclusions.', 'Agree work sequencing, inspection points and final handover.'],
-    faqs: [
-      { question: 'Can repainting be planned for an occupied building?', answer: 'Yes, phasing and access windows can be discussed with the building manager. The final sequence depends on operational restrictions and safety requirements.' },
-      { question: 'Do you assess the existing surface before quoting?', answer: 'A site assessment is important because peeling, cracks, dampness and previous coatings can change preparation requirements and quantities.' },
-      { question: 'Can common areas be included in the same project?', answer: 'Lobbies, corridors, staircases and other shared spaces can be scoped as separate work areas within a wider building repainting programme.' },
-      { question: 'Are access systems included?', answer: 'Scaffolding, lifts, rope access or other access arrangements must be specified and priced explicitly in the project quotation.' },
-      { question: 'Can a multi-building programme be considered?', answer: 'A portfolio or multi-building requirement can be reviewed using a site list, approximate areas, access conditions and proposed programme.' },
-    ],
-  },
-  'wood-polishing': {
-    label: 'Wood polishing and refinishing',
-    title: 'Commercial Wood Polishing & Refinishing',
-    description: 'Wood polishing and refinishing for commercial interiors, hotel joinery, doors, panelling and reception areas in Delhi NCR.',
-    intro: 'Wood surfaces in hotels, offices and commercial interiors need a finish suited to the existing substrate, usage and desired appearance. The scope should begin with a review of the wood condition and a sample approval where appropriate.',
-    scope: ['Doors, frames, wall panelling and fixed joinery', 'Reception counters and selected interior wood surfaces', 'Surface preparation, stain matching and finish application', 'Refinishing of existing surfaces where condition allows'],
-    workflow: ['Share photographs and identify the wood surface and property use.', 'Review the existing finish and whether repair or stripping is required.', 'Agree sample, finish type, preparation and protection requirements.', 'Complete the approved areas and inspect finish consistency.'],
-    faqs: [
-      { question: 'Which commercial wood surfaces can be considered?', answer: 'Doors, frames, panelling, reception counters and fixed joinery can be considered after reviewing the substrate and current finish.' },
-      { question: 'Can existing polished wood be refinished?', answer: 'Existing surfaces may be refinished where their condition allows. The preparation method depends on the current coating, damage and substrate.' },
-      { question: 'Can a sample finish be approved before larger work begins?', answer: 'A sample or test area is a useful way to agree colour and sheen before proceeding across a larger visible area.' },
-      { question: 'Can the work be carried out in an operating hotel or office?', answer: 'Work phasing, ventilation, access and protection can be discussed with the site team. The practical method depends on the selected materials and location.' },
-      { question: 'Are specialist finishes such as PU or melamine available?', answer: 'Specific finish systems should only be confirmed after the team verifies product availability, substrate suitability and execution capability for the project.' },
-    ],
-  },
-  'surface-preparation-finishing': {
-    label: 'Surface preparation',
-    title: 'Surface Preparation & Finishing',
-    description: 'Surface preparation and finishing support for commercial painting and property refurbishment scopes in Delhi NCR.',
-    intro: 'A durable finish depends on what happens before the final coat. Vibroxi scopes preparation around the existing surface, approved coating system, protection needs and site conditions.',
-    scope: ['Removal of loose or unsound existing finish where included', 'Minor filling, sanding and surface preparation as specified', 'Primer and finish-coat coordination with the approved system', 'Protection of adjacent fixtures and work-area handover'],
-    workflow: ['Identify the substrate and existing coating condition.', 'Agree preparation level, sample requirements and material specifications.', 'Confirm protection, access, exclusions and work sequence.', 'Inspect prepared surfaces and completed finish against the agreed scope.'],
-    faqs: [
-      { question: 'Why is surface preparation important?', answer: 'Preparation affects adhesion and the appearance of the final finish. The required method depends on the substrate and condition.' },
-      { question: 'Are major civil repairs included?', answer: 'Major civil, structural or construction work is outside the stated finishing focus and should not be assumed to be included. Any minor preparation is defined in writing.' },
-      { question: 'Can the material system be specified by the client?', answer: 'Client specifications can be reviewed and incorporated where suitable for the substrate and agreed scope.' },
-      { question: 'Will the work area be protected?', answer: 'Protection requirements for floors, furniture, fixtures and adjacent areas should be listed in the project scope and agreed before work starts.' },
-      { question: 'How is completed work inspected?', answer: 'Inspection criteria should be agreed for the project, including finish appearance, coverage, snag items and area-wise handover.' },
-    ],
-  },
-'office-commercial-interior-painting': {
-    label: 'Commercial interiors',
-    title: 'Office & Commercial Interior Painting',
-    description: 'Interior repainting for offices, hotels, retail environments and shared commercial spaces in Delhi NCR.',
-    intro: 'Planned interior repainting for offices, business parks, hotels and commercial common areas, coordinated around access and occupancy.',
-    scope: ['Work-area phasing for occupied properties', 'Wall, ceiling and feature-surface preparation', 'Colour and finish coordination with project teams', 'Handover by floor, zone or work package'],
-    workflow: ['Review the property and affected areas.', 'Agree access, protection and working windows.', 'Confirm surface preparation and finish schedule.', 'Complete work by the agreed area sequence.'],
-    faqs: [
-      { question: 'Can office painting be completed outside business hours?', answer: 'Working windows can be discussed with the property team and reflected in the agreed programme.' },
-      { question: 'Can one floor be completed at a time?', answer: 'Floor-wise or zone-wise phasing can be considered where site access and resources allow.' },
-      { question: 'Can the client specify paint products?', answer: 'Specified products can be reviewed and included in the scope after confirming suitability and availability.' },
-      { question: 'Can ceilings and common areas be included?', answer: 'Ceilings and shared areas can be included when quantities, access and preparation requirements are defined.' },
-      { question: 'How do you minimise disruption?', answer: 'The work plan can address access windows, protection, sequencing and handover with the building representative.' },
-    ],
-  },
-'commercial-wood-polishing-refinishing': {
-    label: 'Wood finishes',
-    title: 'Commercial Wood Polishing & Refinishing',
-    description: 'Wood polishing and refinishing for commercial joinery, doors, panelling and reception areas.',
-    intro: 'Wood polishing and refinishing for joinery, doors, panelling, reception desks and hospitality interiors where finish consistency matters.',
-    scope: ['Surface preparation and stain matching', 'Finish-system review based on substrate', 'Refinishing for existing joinery where feasible', 'Sample approval before larger-area application'],
-    workflow: ['Identify the wood surface and existing coating.', 'Review repair and preparation requirements.', 'Approve the sample and finish specification.', 'Complete and inspect the agreed areas.'],
-    faqs: [
-      { question: 'Can existing wood finishes be restored?', answer: 'Restoration may be possible depending on the existing coating, substrate and level of damage.' },
-      { question: 'Do you provide stain matching?', answer: 'Stain matching can be discussed using a sample and the available material system.' },
-      { question: 'Can work be performed in hotel common areas?', answer: 'Access, ventilation, protection and guest movement need to be coordinated with hotel operations.' },
-      { question: 'Are all wood types suitable for the same polish?', answer: 'No. The substrate and current coating affect the suitable preparation and finish system.' },
-      { question: 'Can you provide a written scope?', answer: 'The agreed scope should list the surfaces, preparation, finish system, sample approval and exclusions.' },
-    ],
-  },
-'painting-subcontractor-interior-fit-out-contractors': {
-    label: 'For fit-out teams',
-    title: 'Painting & Finishing Subcontractor',
-    description: 'Painting and finishing execution support for commercial fit-out contractors and project managers in Delhi NCR.',
-    intro: 'Vibroxi can discuss painting and finishing work packages with commercial fit-out contractors. The role is execution support for defined finishing scopes, not design or construction.',
-    scope: ['Painting and finishing work packages', 'Sequence alignment with other trades', 'Scope clarity around preparation and final coats', 'Punch-list and snag closure within the agreed package'],
-    workflow: ['Review drawings, BOQ, finish schedule and programme.', 'Confirm work boundaries, interfaces and exclusions.', 'Agree mobilisation, access and inspection points.', 'Complete the package and close agreed snags.'],
-    faqs: [
-      { question: 'Do you provide interior design or construction?', answer: 'No. The focus is painting, polishing and finishing execution. Design and construction are not presented as Vibroxi services.' },
-      { question: 'Can you work from a fit-out BOQ?', answer: 'A BOQ and finish schedule can be reviewed to define the painting and finishing work package.' },
-      { question: 'Can you coordinate with other trades?', answer: 'Trade interfaces and work sequence can be discussed with the project manager before execution.' },
-      { question: 'Can you support snag closure?', answer: 'Snag items within the agreed painting and finishing scope can be reviewed and scheduled for closure.' },
-      { question: 'Do you accept projects outside Delhi NCR?', answer: 'Projects outside the initial region can be reviewed individually based on size, schedule and mobilisation feasibility.' },
-    ],
-  },
-'commercial-painting-maintenance-programs': {
-    label: 'Recurring work',
-    title: 'Commercial Painting Maintenance Programmes',
-    description: 'Planned repainting and recurring finishing work packages for commercial properties and facility teams.',
-    intro: 'A planned programme can help property teams identify priority areas and schedule repainting before work becomes an urgent operational issue. Scope and service levels must be agreed for each property.',
-    scope: ['Periodic review of painted areas', 'Priority-based repainting work packages', 'Portfolio and multi-site requirements', 'Planned work aligned to property operations'],
-    workflow: ['List properties, areas and current maintenance concerns.', 'Review condition and establish priorities.', 'Agree annual or periodic scope, exclusions and budget process.', 'Schedule work and review completed packages.'],
-    faqs: [
-      { question: 'Is this an annual maintenance contract?', answer: 'An annual or periodic arrangement can be discussed, but the exact services, visits, response times and exclusions must be agreed in writing.' },
-      { question: 'Does the programme include emergency repairs?', answer: 'Emergency response is not assumed. It must be separately defined with realistic availability and response commitments.' },
-      { question: 'Can multiple properties be covered?', answer: 'Portfolio requirements can be assessed using property locations, site count, condition and expected work volume.' },
-      { question: 'How are priorities decided?', answer: 'Priorities can be based on site condition, safety, visibility, operational impact and the property manager’s requirements.' },
-      { question: 'Can the scope be reviewed each year?', answer: 'The programme can include a periodic review process if inspection frequency and reporting responsibilities are agreed.' },
-    ],
-  },
-}
-
-
-type ServiceExpansion = { searchFamily: string[]; buyerGuidance: { title: string; body: string }[]; pricingFactors: string[]; exclusions: string }
-const serviceExpansion: Record<string, ServiceExpansion> = {
-  'commercial-painting': {
-    searchFamily: ['commercial painting contractor Delhi NCR', 'office painting contractor', 'corporate office painting', 'hotel and hospitality painting', 'retail showroom painting', 'commercial interior painting', 'commercial exterior painting', 'warehouse and business park painting'],
-    buyerGuidance: [
-      { title: 'Office and corporate interior painting', body: 'Office repainting may cover workstations, cabins, meeting rooms, reception areas, corridors and ceilings. The work plan should identify occupied zones, furniture and equipment protection, colour approvals, permitted hours and floor-wise handover.' },
-      { title: 'Hotel, retail and customer-facing spaces', body: 'Hotels, showrooms and public-facing premises may need tighter coordination around guests, customers, opening hours, odour sensitivity and access. The quotation should identify the work windows and areas released by the operator.' },
-      { title: 'Commercial exterior and shared-area painting', body: 'External walls, entrances, staircases, lobbies and common areas require a separate review of surface condition, exposure, access and protection. Façade access arrangements must be assessed and stated clearly.' },
-      { title: 'BOQ-based painting packages', body: 'For fit-out contractors and facility teams, the work can be reviewed against drawings, a paint schedule, quantities and the agreed sequence. Any assumptions about coats, primer, putty, materials and touch-ups should be documented.' },
-    ],
-    pricingFactors: ['Paintable wall and ceiling area, not simply the carpet area of the office', 'Paint grade, colour change, primer, putty and number of coats', 'Furniture movement, masking and protection in occupied areas', 'Height, access, work-at-night requirements and phased floor handovers'],
-    exclusions: 'Waterproofing, leak rectification, major plaster or civil repairs, specialist coatings and access systems are not assumed to be included. Each must be assessed and listed separately if required.',
-  },
-  'building-repainting': {
-    searchFamily: ['commercial building repainting Delhi NCR', 'exterior building painting contractor', 'commercial façade repainting', 'office building exterior painting', 'apartment and managed property common-area repainting', 'commercial building maintenance painting'],
-    buyerGuidance: [
-      { title: 'Exterior wall and façade repainting', body: 'A building repainting scope starts with the existing coating, substrate, exposure, visible cracks, peeling and dampness indicators. The inspection records what is paint preparation and what may require a separate repair specialist.' },
-      { title: 'Lobbies, corridors and staircase repainting', body: 'Common-area painting can be measured by floor, zone or building. The plan should cover resident or tenant movement, signage, floor protection, access to lifts and the sequence for returning each area to use.' },
-      { title: 'Multi-building and portfolio repainting', body: 'For facility managers and asset owners, a site register with building age, approximate area, condition photographs, access details and priority helps organise a phased BOQ and mobilisation plan.' },
-      { title: 'Weather and access planning', body: 'Exterior work is affected by weather windows, height, obstructions, neighbouring properties and the selected access method. These factors should be reviewed before committing to programme or price.' },
-    ],
-    pricingFactors: ['Building height, elevation area and access method', 'Surface preparation, crack treatment and coating removal where specified', 'Weather exposure, product specification and coat system', 'Scaffolding, lift, barricading, safety and public-area protection requirements'],
-    exclusions: 'Structural repairs, waterproofing, leak source correction, major plaster replacement and specialist rope-access arrangements are not included unless separately assessed, confirmed and priced.',
-  },
-  'wood-polishing': {
-    searchFamily: ['commercial wood polishing Delhi NCR', 'office woodwork polishing', 'hotel wood polishing contractor', 'wood door and frame refinishing', 'reception counter wood finish', 'commercial joinery refinishing', 'wood panelling restoration'],
-    buyerGuidance: [
-      { title: 'Doors, frames and fixed joinery', body: 'A commercial wood polishing schedule should list each surface, dimensions, number of faces, existing finish and visible damage. Door leaves, frames and architraves may need separate quantities.' },
-      { title: 'Hotel interiors and reception woodwork', body: 'Reception counters, wall panelling and guest-facing joinery require agreement on sheen, colour, sample approval, ventilation, protection and the time each area can remain unavailable.' },
-      { title: 'Existing finish restoration', body: 'Re-polishing is not always the same as applying a new finish. Existing varnish, lacquer, melamine or other coating may need testing, removal or additional preparation before a compatible system is selected.' },
-      { title: 'Finish selection and sample approval', body: 'The final system depends on substrate, use, appearance, product compatibility and confirmed application capability. A sample panel or test area can help approve colour and sheen before larger work.' },
-    ],
-    pricingFactors: ['Measured surface area or item schedule, including visible faces and edges', 'New woodwork versus previously coated or damaged surfaces', 'Sanding, stripping, filling, stain matching and sample requirements', 'Finish specification, number of coats, ventilation and area access'],
-    exclusions: 'Furniture manufacturing, carpentry replacement, major joinery repairs and any specialist PU, melamine, lacquer or Duco system are not promised by default. Product and application capability must be confirmed for the specific project.',
-  },
-  'surface-preparation-finishing': {
-    searchFamily: ['commercial surface preparation contractor', 'wall surface preparation before painting', 'commercial paint scraping and sanding', 'putty and primer application contractor', 'commercial coating preparation', 'surface finishing contractor Delhi NCR'],
-    buyerGuidance: [
-      { title: 'Substrate and existing coating review', body: 'Concrete, plaster, gypsum, wood and metal need different preparation approaches. Existing coating adhesion, contamination, moisture and damage should be reviewed before a method is selected.' },
-      { title: 'Preparation before repainting', body: 'The written scope should distinguish scraping of loose paint, sanding, minor filling, dust removal, primer and finish coats. The number and extent of preparation stages depend on the observed surface.' },
-      { title: 'Coordination with fit-out and maintenance teams', body: 'Preparation and finishing packages often sit between other trades. Agree when the area will be released, what repairs another contractor completes, who protects finished work and how readiness is signed off.' },
-      { title: 'Inspection and acceptance', body: 'Agree sample areas, surface readiness, finish appearance, coverage, snag categories and handover records before the work starts. This reduces ambiguity between the BOQ and site conditions.' },
-    ],
-    pricingFactors: ['Substrate type, existing coating and condition', 'Preparation depth and quantity of damaged or loose areas', 'Primer and finish specification and number of application stages', 'Dust containment, protection, access and trade coordination'],
-    exclusions: 'Major plaster replacement, structural or civil repairs, damp-proofing, leak correction, hazardous-material removal and specialist industrial coating preparation are outside the default scope unless specifically assessed and confirmed.',
-  },
-}
-
-const relatedByService: Record<string, { label: string; href: string }[]> = {
-  'commercial-painting': [
-    { label: 'Building repainting', href: '/services/building-repainting' },
-    { label: 'Hotels & hospitality', href: '/industries/hotels-hospitality' },
-    { label: 'Commercial property owners', href: '/industries/commercial-property' },
-  ],
-  'building-repainting': [
-    { label: 'Commercial painting', href: '/services/commercial-painting' },
-    { label: 'Commercial property owners', href: '/industries/commercial-property' },
-    { label: 'Planned maintenance contracts', href: '/annual-maintenance-contracts' },
-  ],
-  'wood-polishing': [
-    { label: 'Hotels & hospitality', href: '/industries/hotels-hospitality' },
-    { label: 'Commercial painting', href: '/services/commercial-painting' },
-    { label: 'Surface preparation & finishing', href: '/services/surface-preparation-finishing' },
-  ],
-  'surface-preparation-finishing': [
-    { label: 'Commercial painting', href: '/services/commercial-painting' },
-    { label: 'Facility management teams', href: '/industries/facility-management' },
-    { label: 'Specialist subcontracting', href: '/facility-management-subcontracting' },
-  ],
-}
-const canonicalServiceSlugs = ['commercial-painting', 'building-repainting', 'wood-polishing', 'surface-preparation-finishing']
-export function generateStaticParams() { return canonicalServiceSlugs.map((slug) => ({ slug })) }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const page = pages[slug]
-  if (!page) return { title: 'Service not found', robots: { index: false, follow: true } }
-  return { title: page.title, description: page.description, ...canonicalMetadata(`/services/${slug}`) }
+  const s = servicesBySlug[slug]
+  if (!s) return {}
+  return pageMetadata({ title: s.title, description: s.description, path: serviceHref(slug), indexable: isServiceIndexable(s) })
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const page = pages[slug]
-  if (!page) notFound()
-  return <main className="bg-[#f6f1e8] text-[#183c31]"><Header/>
-    <section className="bg-[#183c31] px-5 pb-20 pt-40 text-white lg:px-8"><div className="mx-auto max-w-7xl"><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#d9bd80]">{page.label} · Delhi NCR</p><h1 className="mt-5 max-w-4xl font-serif text-5xl leading-tight md:text-7xl">{page.title}</h1><p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">{page.intro}</p><div className="mt-8"><ButtonLink dark href="/contact">Discuss a commercial project</ButtonLink></div></div></section>
-    <section className="mx-auto grid max-w-7xl gap-14 px-5 py-20 lg:grid-cols-[1fr_.8fr] lg:px-8"><div className="grid gap-12">
-      <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Potential scope</p><h2 className="mt-3 font-serif text-3xl md:text-4xl">What the work package may include</h2><div className="mt-8 grid gap-4">{page.scope.map((point)=><div key={point} className="flex gap-3 border-b border-[#ddd8cd] pb-4 text-base"><Check size={19} className="mt-0.5 shrink-0 text-[#a17b3f]"/>{point}</div>)}</div></article>
-      <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Project workflow</p><h2 className="mt-3 font-serif text-3xl md:text-4xl">From site review to handover</h2><ol className="mt-8 grid gap-5">{page.workflow.map((step,i)=><li key={step} className="flex gap-4 border-b border-[#ddd8cd] pb-4"><span className="font-serif text-xl text-[#a17b3f]">0{i+1}</span><span className="text-sm leading-6 text-[#5d655f]">{step}</span></li>)}</ol></article>
-      <section className="grid gap-8">
-        <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Service detail</p><h2 className="mt-3 font-serif text-3xl md:text-4xl">Planning the right {page.label.toLowerCase()} scope</h2><div className="mt-7 grid gap-6">{(serviceExpansion[slug]?.buyerGuidance ?? []).map((item)=><div key={item.title} className="border-b border-[#ddd8cd] pb-5"><h3 className="font-serif text-xl">{item.title}</h3><p className="mt-2 text-sm leading-7 text-[#5d655f]">{item.body}</p></div>)}</div></article>
-        <article className="rounded-sm bg-[#ebe4d7] p-7"><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">What affects the estimate</p><h2 className="mt-3 font-serif text-3xl">Pricing depends on the work package.</h2><p className="mt-3 text-sm leading-7 text-[#5d655f]">The volume of work, type of surface and finish, preparation needed, material specification, site access and working schedule all affect the quotation. A single generic per-square-foot rate may not represent a mixed commercial scope.</p><ul className="mt-5 grid gap-3">{(serviceExpansion[slug]?.pricingFactors ?? []).map((factor)=><li key={factor} className="flex gap-3 text-sm leading-6"><Check size={17} className="mt-0.5 shrink-0 text-[#a17b3f]"/>{factor}</li>)}</ul><p className="mt-5 text-xs leading-6 text-[#68716b]">Scope boundary: {serviceExpansion[slug]?.exclusions}</p><Link href="/pricing" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#a17b3f] underline-offset-4">See how commercial project pricing is assessed <ArrowUpRight size={15}/></Link></article>
-        <article><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Related search topics</p><h2 className="mt-3 font-serif text-2xl">Common project requirements</h2><p className="mt-3 text-sm leading-7 text-[#5d655f]">{(serviceExpansion[slug]?.searchFamily ?? []).join(' · ')}</p></article>
-      </section>
-      <section><h2 className="font-serif text-3xl md:text-4xl">Questions about this service</h2><div className="mt-6 grid gap-3">{page.faqs.map((faq)=><details key={faq.question} className="border-b border-[#ddd8cd] py-4"><summary className="cursor-pointer text-sm font-semibold">{faq.question}</summary><p className="mt-3 text-sm leading-6 text-[#5d655f]">{faq.answer}</p></details>)}</div></section>
-    </div><aside id="contact" className="h-fit rounded-sm bg-white p-6 shadow-sm md:p-8"><h2 className="font-serif text-3xl">Request a project discussion</h2><p className="mb-7 mt-3 text-sm leading-6 text-[#68716b]">Share the site, approximate quantities, service requirement and target programme. Availability and scope are confirmed after review.</p><EnquiryForm/></aside></section>
-    <section className="border-t border-[#ddd8cd] px-5 py-16"><div className="mx-auto max-w-7xl"><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Related information</p><h2 className="mt-2 font-serif text-3xl">Explore relevant work and property types</h2><div className="mt-6 flex flex-wrap gap-x-7 gap-y-3">{(relatedByService[slug] ?? []).map((item)=><Link key={item.href} href={item.href} className="text-sm font-semibold text-[#183c31] underline decoration-[#c9a66b] underline-offset-4">{item.label}</Link>)}</div></div></section><Footer/></main>
+  const s = servicesBySlug[slug]
+  if (!s) notFound()
+
+  const parent = s.parent ? servicesBySlug[s.parent] : undefined
+  const children = allServices.filter((x) => x.parent === s.slug)
+  const relatedProperties = properties.filter((p) => p.services.includes(s.slug)).slice(0, 6)
+  const relatedGuides = guides.filter((g) => g.services.includes(s.slug)).slice(0, 3)
+  const indexable = isServiceIndexable(s)
+  const breadcrumbs = [{ label: 'Services', href: '/services' }, ...(parent ? [{ label: parent.name, href: serviceHref(parent.slug) }] : []), { label: s.name, href: serviceHref(s.slug) }]
+
+  const schema = siteUrl && indexable
+    ? { '@context': 'https://schema.org', '@type': 'Service', name: s.h1, serviceType: s.name, description: s.description, url: absoluteUrl(serviceHref(s.slug)), areaServed: ['Delhi', 'Gurugram', 'Noida', 'Greater Noida', 'Ghaziabad', 'Faridabad'].map((name) => ({ '@type': 'City', name })), provider: { '@id': `${siteUrl}/#business`, name: siteName } }
+    : null
+
+  return (
+    <PageShell>
+      {!indexable && showReviewNotices && <ReviewNotice text={`"${trades[s.trade].label}" is awaiting capability confirmation. This page is noindex and excluded from the sitemap. ${trades[s.trade].verificationNote}`} />}
+      <PageHero eyebrow={`${trades[s.trade].label} · Delhi NCR`} title={s.h1} intro={s.intro} breadcrumbs={breadcrumbs}>
+        <WhatsAppButton light message={topicMessage(s.name)}>{s.cta}</WhatsAppButton>
+        <CallButton />
+      </PageHero>
+      <JsonLd data={schema} />
+
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 lg:grid-cols-[1fr_.82fr] lg:px-8 lg:py-20">
+        <div className="grid gap-12">
+          <section>
+            <h2 className="font-serif text-3xl">What the work can include</h2>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {s.includes.map((item) => <li key={item} className="flex gap-3 rounded-sm border border-[#e3ded3] bg-white p-4 text-sm leading-6"><Check size={18} className="mt-0.5 shrink-0 text-[#a17b3f]" aria-hidden />{item}</li>)}
+            </ul>
+            <p className="mt-4 text-sm leading-6 text-[#68716b]">The final scope is confirmed in a written, itemised quotation after we understand your requirement.</p>
+          </section>
+
+          {children.length > 0 && (
+            <section>
+              <h2 className="font-serif text-3xl">Specific {s.name.toLowerCase()} services</h2>
+              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                {children.map((c) => <li key={c.slug}><Link href={serviceHref(c.slug)} className="block rounded-sm border border-[#ddd8cd] bg-white p-4 hover:border-[#c9a66b]"><span className="font-semibold">{c.name}</span><span className="mt-1 block text-sm text-[#68716b]">{c.description.split(' — ')[0].split('. ')[0]}.</span></Link></li>)}
+              </ul>
+            </section>
+          )}
+
+          {s.sections.map((sec) => (
+            <section key={sec.title}>
+              <h2 className="font-serif text-3xl">{sec.title}</h2>
+              <p className="mt-4 text-base leading-7 text-[#4f5852]">{sec.body}</p>
+              {sec.items && <ul className="mt-4 grid gap-2">{sec.items.map((i) => <li key={i} className="flex gap-2 text-sm"><Check size={16} className="mt-0.5 text-[#a17b3f]" aria-hidden />{i}</li>)}</ul>}
+            </section>
+          ))}
+
+          <section>
+            <h2 className="font-serif text-3xl">Who this is for</h2>
+            <ul className="mt-5 flex flex-wrap gap-2">{s.suitableFor.map((x) => <li key={x} className="rounded-full border border-[#d8cfbd] bg-white px-4 py-2 text-sm">{x}</li>)}</ul>
+          </section>
+
+          <section className="rounded-sm bg-[#ebe4d7] p-6 md:p-8">
+            <h2 className="font-serif text-3xl">What affects the quotation</h2>
+            <ul className="mt-5 grid gap-3">{s.quoteFactors.map((f) => <li key={f} className="flex gap-3 text-sm leading-6"><Check size={17} className="mt-0.5 shrink-0 text-[#a17b3f]" aria-hidden />{f}</li>)}</ul>
+            <p className="mt-5 text-sm leading-6 text-[#5d655f]">We do not publish fixed rates because these variables change the price significantly.{' '}
+              <Link href={s.costPage ? costHref(s.costPage) : '/pricing'} className="font-semibold underline decoration-[#c9a66b] underline-offset-4">{s.costPage ? `How ${resolveLink(s.costPage).label.toLowerCase()} is worked out` : 'How quotations are prepared'}</Link></p>
+          </section>
+
+          <section className="flex gap-4 rounded-sm border border-[#e3ded3] bg-white p-6">
+            <ShieldAlert className="mt-1 shrink-0 text-[#a17b3f]" aria-hidden />
+            <div>
+              <h2 className="font-serif text-2xl">Scope boundaries</h2>
+              <p className="mt-3 text-sm leading-7 text-[#4f5852]">{s.notIncluded}</p>
+              <p className="mt-3 text-sm leading-7 text-[#4f5852]">Vibroxi carries out non-structural interior works. We do not provide construction, civil, structural, architectural or interior design services.</p>
+            </div>
+          </section>
+
+          <FaqList faqs={s.faqs} title={`${s.name}: common questions`} />
+
+          <div className="grid gap-6">
+            <InlineLinks title="Related services" items={s.related.map(resolveLink)} />
+            {relatedProperties.length > 0 && <InlineLinks title="Property types" items={relatedProperties.map((p) => ({ label: p.name, href: propertyHref(p.slug) }))} />}
+            {relatedGuides.length > 0 && <InlineLinks title="Helpful guides" items={relatedGuides.map((g) => ({ label: g.title, href: guideHref(g.slug) }))} />}
+          </div>
+        </div>
+        <EnquiryAside title={s.cta} defaultServices={s.formServices} source={s.name} />
+      </div>
+
+      <CtaBand title="Need more than one interior job done?" body="Combine painting, electrical, plumbing, carpentry, ceilings and flooring into one enquiry and one coordinated schedule." cta="Discuss Multiple Interior Works" message={multiWorksMessage} />
+    </PageShell>
+  )
 }

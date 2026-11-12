@@ -1,14 +1,16 @@
-name: Build and typecheck
+name: Build and verify
 
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [main, 'restructure/**']
+    branches: [main, 'restructure/**', 'claude/**']
 
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SITE_URL: https://example.com
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -19,5 +21,10 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec tsc --noEmit
+      - run: pnpm typecheck
       - run: pnpm build
+      - name: Crawl built site (links, titles, canonicals, redirects, sitemap)
+        run: |
+          pnpm start -p 3123 &
+          for i in $(seq 1 30); do curl -sf http://localhost:3123/ >/dev/null && break; sleep 1; done
+          pnpm check:site http://localhost:3123
