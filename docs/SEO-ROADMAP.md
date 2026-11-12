@@ -60,3 +60,11 @@
 - Keep India at /.
 - Add /us/ or /uk/ only when the company is actually serving that market, with relevant legal, service, currency, contact and local proof details.
 - Do not publish empty country folders or duplicate India pages with only country names changed.
+### Phase 3 — content depth (updated 12 November 2026)
+
+- Expand the four core service pages with buyer-specific sections, scope boundaries, measurement/BOQ context, practical execution details, pricing factors and service-specific FAQs.
+- Maintain one canonical pricing page covering commercial painting, building repainting, wood polishing and surface preparation. Explain why volume, scope type and site conditions change the quote; do not invent fixed rates.
+- Add keyword-family mapping for each service, buyer segment, location and pricing intent. Treat keyword clusters as hypotheses until validated in Search Console and live SERPs.
+- Use competitor pricing guides to identify unanswered buyer questions and content structure—not to copy their wording, photos, prices, reviews, project claims or guarantees.
+- Prioritise distinct supporting guides such as a commercial painting BOQ checklist, occupied-office repainting plan and wood-finish specification guide only after checking query demand and cannibalisation.
+- Review Search Console query/page data before adding city-service combinations or further pages.
