@@ -1,19 +1,115 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Check, ClipboardCheck } from 'lucide-react'
-import { ButtonLink, EnquiryForm, Footer, Header } from '@/components/site-shell'
+import { notFound } from 'next/navigation'
+import { Check, ShieldAlert } from 'lucide-react'
+import { CallButton, CtaBand, EnquiryAside, FaqList, InlineLinks, JsonLd, PageHero, PageShell, ReviewNotice, WhatsAppButton } from '@/components/site'
+import { trades } from '@/lib/capabilities'
+import { multiWorksMessage, topicMessage } from '@/lib/contact'
+import { allServices, isServiceIndexable, servicesBySlug } from '@/lib/content/services'
+import { properties } from '@/lib/content/properties'
+import { guides } from '@/lib/content/guides'
+import { costHref, guideHref, propertyHref, resolveLink, serviceHref } from '@/lib/routes'
+import { pageMetadata, showReviewNotices } from '@/lib/seo'
+import { absoluteUrl, siteName, siteUrl } from '@/lib/site'
 
-const pages: Record<string, { title: string; intro: string; points: string[]; label: string }> = {
-  'commercial-painting-contractors-delhi-ncr': { label: 'Core capability', title: 'Commercial Painting Contractors in Delhi NCR', intro: 'A project-focused painting execution partner for offices, commercial buildings, hospitality, retail and managed properties across Delhi NCR.', points: ['Commercial interior and exterior painting scopes', 'Surface preparation, putty, primer and minor repairs', 'BOQ-led quotations with site assessment', 'Direct engagement or project-based subcontracting'] },
-  'office-commercial-interior-painting': { label: 'Commercial interiors', title: 'Office and Commercial Interior Painting', intro: 'Planned interior repainting for offices, business parks, hotels, retail environments and common commercial areas—coordinated around access and occupancy.', points: ['Work-area phasing for occupied properties', 'Wall, ceiling and feature-surface preparation', 'Colour and finish coordination with project teams', 'Clear handover by floor, zone or work package'] },
-  'exterior-commercial-building-repainting': { label: 'Building exteriors', title: 'Exterior and Commercial Building Repainting', intro: 'Exterior repainting scopes that begin with a realistic view of substrate condition, access, weather windows and the surrounding site.', points: ['Condition review before final scope', 'Primer and coating system coordination', 'Access and protection planning', 'Phased work for active commercial premises'] },
-  'commercial-wood-polishing-refinishing': { label: 'Wood finishes', title: 'Commercial Wood Polishing and Refinishing', intro: 'Wood polishing and refinishing for joinery, doors, panelling, reception desks and hospitality interiors where finish consistency matters.', points: ['Surface preparation and stain matching', 'PU and melamine finish coordination', 'Refinishing for existing joinery where feasible', 'Sample approval before larger-area application'] },
-  'painting-contractors-facility-management': { label: 'For facility teams', title: 'Painting Contractors for Facility Management Companies', intro: 'A flexible execution layer for facility managers who need clear scopes, responsive site coordination and recurring painting support across properties.', points: ['Planned and reactive repainting scopes', 'Site-wise reporting and handover notes', 'Support for vendor and subcontractor coordination', 'Multi-property requirements discussed case by case'] },
-  'painting-subcontractor-interior-fit-out-contractors': { label: 'For fit-out teams', title: 'Painting Subcontractor for Interior Fit-Out Contractors', intro: 'Painting and finishing execution support for fit-out contractors and project managers working to a broader interior delivery programme.', points: ['Sequence alignment with other trades', 'Scope clarity around preparation and final coats', 'Coordination for punch-list and snag closure', 'Project-based workforce and subcontractor model'] },
-  'housing-society-common-area-painting': { label: 'Common areas', title: 'Housing Society and Common-Area Painting', intro: 'Repainting support for lobbies, staircases, corridors, parking areas and shared amenity spaces in housing societies and managed communities.', points: ['Area-wise scope definition for committee review', 'Colour and finish options for shared spaces', 'Phased access planning for residents and staff', 'Maintenance cycles based on actual site needs'] },
-  'commercial-painting-maintenance-programs': { label: 'Recurring work', title: 'Commercial Painting Maintenance Programs', intro: 'Recurring repainting programs help property teams plan appearance, access and budgets instead of waiting for every area to become urgent.', points: ['Annual or periodic review of visible areas', 'Priority-based work packages', 'Portfolio and multi-site discussions', 'Maintenance scope aligned to actual condition'] },
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return allServices.map((s) => ({ slug: s.slug }))
 }
 
-export function generateStaticParams() { return Object.keys(pages).map((slug) => ({ slug })) }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const page = pages[slug] ?? pages['commercial-painting-contractors-delhi-ncr']; return { title: page.title, description: page.intro, alternates: { canonical: `/services/${slug}` } } }
-export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const page = pages[slug] ?? pages['commercial-painting-contractors-delhi-ncr']; return <main className="bg-[#f6f1e8] text-[#183c31]"><Header /><section className="bg-[#183c31] px-5 pb-20 pt-40 text-white lg:px-8"><div className="mx-auto max-w-7xl"><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#d9bd80]">{page.label} · Delhi NCR</p><h1 className="mt-5 max-w-4xl font-serif text-5xl leading-tight md:text-7xl">{page.title}</h1><p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">{page.intro}</p><div className="mt-8"><ButtonLink dark>Discuss your project</ButtonLink></div></div></section><section className="mx-auto grid max-w-7xl gap-14 px-5 py-20 lg:grid-cols-[1fr_.8fr] lg:px-8"><div><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">What the scope can include</p><div className="mt-8 grid gap-4">{page.points.map((point) => <div key={point} className="flex gap-3 border-b border-[#ddd8cd] pb-4 text-base"><Check size={19} className="mt-0.5 shrink-0 text-[#a17b3f]" />{point}</div>)}</div><div className="mt-12 rounded-sm bg-[#ebe4d7] p-7"><ClipboardCheck className="text-[#a17b3f]" /><h2 className="mt-6 font-serif text-3xl">Start with the right brief.</h2><p className="mt-3 text-sm leading-6 text-[#5d655f]">Share the property type, location, approximate area, expected start date and any BOQ or drawings. Final scope is confirmed after review.</p></div></div><aside id="contact" className="rounded-sm bg-white p-6 shadow-sm md:p-8"><h2 className="font-serif text-3xl">Request a project quote</h2><p className="mt-3 mb-7 text-sm leading-6 text-[#68716b]">For qualified commercial enquiries only. This demo form needs an email, CRM or WhatsApp connection before launch.</p><EnquiryForm /></aside></section><section className="border-t border-[#ddd8cd] px-5 py-16"><div className="mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between"><div><p className="text-xs font-semibold uppercase tracking-[.25em] text-[#a17b3f]">Explore more</p><h2 className="mt-2 font-serif text-3xl">Related commercial capabilities</h2></div><Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-[#a17b3f]">Back to homepage <ArrowRight size={16} /></Link></div></section><Footer /></main> }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const s = servicesBySlug[slug]
+  if (!s) return {}
+  return pageMetadata({ title: s.title, description: s.description, path: serviceHref(slug), indexable: isServiceIndexable(s) })
+}
+
+export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const s = servicesBySlug[slug]
+  if (!s) notFound()
+
+  const parent = s.parent ? servicesBySlug[s.parent] : undefined
+  const children = allServices.filter((x) => x.parent === s.slug)
+  const relatedProperties = properties.filter((p) => p.services.includes(s.slug)).slice(0, 6)
+  const relatedGuides = guides.filter((g) => g.services.includes(s.slug)).slice(0, 3)
+  const indexable = isServiceIndexable(s)
+  const breadcrumbs = [{ label: 'Services', href: '/services' }, ...(parent ? [{ label: parent.name, href: serviceHref(parent.slug) }] : []), { label: s.name, href: serviceHref(s.slug) }]
+
+  const schema = siteUrl && indexable
+    ? { '@context': 'https://schema.org', '@type': 'Service', name: s.h1, serviceType: s.name, description: s.description, url: absoluteUrl(serviceHref(s.slug)), areaServed: ['Delhi', 'Gurugram', 'Noida', 'Greater Noida', 'Ghaziabad', 'Faridabad'].map((name) => ({ '@type': 'City', name })), provider: { '@id': `${siteUrl}/#business`, name: siteName } }
+    : null
+
+  return (
+    <PageShell>
+      {!indexable && showReviewNotices && <ReviewNotice text={`"${trades[s.trade].label}" is awaiting capability confirmation. This page is noindex and excluded from the sitemap. ${trades[s.trade].verificationNote}`} />}
+      <PageHero eyebrow={`${trades[s.trade].label} · Delhi NCR`} title={s.h1} intro={s.intro} breadcrumbs={breadcrumbs}>
+        <WhatsAppButton light message={topicMessage(s.name)}>{s.cta}</WhatsAppButton>
+        <CallButton />
+      </PageHero>
+      <JsonLd data={schema} />
+
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 lg:grid-cols-[1fr_.82fr] lg:px-8 lg:py-20">
+        <div className="grid gap-12">
+          <section>
+            <h2 className="font-serif text-3xl">What the work can include</h2>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {s.includes.map((item) => <li key={item} className="flex gap-3 rounded-sm border border-[#e3ded3] bg-white p-4 text-sm leading-6"><Check size={18} className="mt-0.5 shrink-0 text-[#a17b3f]" aria-hidden />{item}</li>)}
+            </ul>
+            <p className="mt-4 text-sm leading-6 text-[#68716b]">The final scope is confirmed in a written, itemised quotation after we understand your requirement.</p>
+          </section>
+
+          {children.length > 0 && (
+            <section>
+              <h2 className="font-serif text-3xl">Specific {s.name.toLowerCase()} services</h2>
+              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                {children.map((c) => <li key={c.slug}><Link href={serviceHref(c.slug)} className="block rounded-sm border border-[#ddd8cd] bg-white p-4 hover:border-[#c9a66b]"><span className="font-semibold">{c.name}</span><span className="mt-1 block text-sm text-[#68716b]">{c.description.split(' — ')[0].split('. ')[0]}.</span></Link></li>)}
+              </ul>
+            </section>
+          )}
+
+          {s.sections.map((sec) => (
+            <section key={sec.title}>
+              <h2 className="font-serif text-3xl">{sec.title}</h2>
+              <p className="mt-4 text-base leading-7 text-[#4f5852]">{sec.body}</p>
+              {sec.items && <ul className="mt-4 grid gap-2">{sec.items.map((i) => <li key={i} className="flex gap-2 text-sm"><Check size={16} className="mt-0.5 text-[#a17b3f]" aria-hidden />{i}</li>)}</ul>}
+            </section>
+          ))}
+
+          <section>
+            <h2 className="font-serif text-3xl">Who this is for</h2>
+            <ul className="mt-5 flex flex-wrap gap-2">{s.suitableFor.map((x) => <li key={x} className="rounded-full border border-[#d8cfbd] bg-white px-4 py-2 text-sm">{x}</li>)}</ul>
+          </section>
+
+          <section className="rounded-sm bg-[#ebe4d7] p-6 md:p-8">
+            <h2 className="font-serif text-3xl">What affects the quotation</h2>
+            <ul className="mt-5 grid gap-3">{s.quoteFactors.map((f) => <li key={f} className="flex gap-3 text-sm leading-6"><Check size={17} className="mt-0.5 shrink-0 text-[#a17b3f]" aria-hidden />{f}</li>)}</ul>
+            <p className="mt-5 text-sm leading-6 text-[#5d655f]">We do not publish fixed rates because these variables change the price significantly.{' '}
+              <Link href={s.costPage ? costHref(s.costPage) : '/pricing'} className="font-semibold underline decoration-[#c9a66b] underline-offset-4">{s.costPage ? `How ${resolveLink(s.costPage).label.toLowerCase()} is worked out` : 'How quotations are prepared'}</Link></p>
+          </section>
+
+          <section className="flex gap-4 rounded-sm border border-[#e3ded3] bg-white p-6">
+            <ShieldAlert className="mt-1 shrink-0 text-[#a17b3f]" aria-hidden />
+            <div>
+              <h2 className="font-serif text-2xl">Scope boundaries</h2>
+              <p className="mt-3 text-sm leading-7 text-[#4f5852]">{s.notIncluded}</p>
+              <p className="mt-3 text-sm leading-7 text-[#4f5852]">Vibroxi carries out non-structural interior works. We do not provide construction, civil, structural, architectural or interior design services.</p>
+            </div>
+          </section>
+
+          <FaqList faqs={s.faqs} title={`${s.name}: common questions`} />
+
+          <div className="grid gap-6">
+            <InlineLinks title="Related services" items={s.related.map(resolveLink)} />
+            {relatedProperties.length > 0 && <InlineLinks title="Property types" items={relatedProperties.map((p) => ({ label: p.name, href: propertyHref(p.slug) }))} />}
+            {relatedGuides.length > 0 && <InlineLinks title="Helpful guides" items={relatedGuides.map((g) => ({ label: g.title, href: guideHref(g.slug) }))} />}
+          </div>
+        </div>
+        <EnquiryAside title={s.cta} defaultServices={s.formServices} source={s.name} />
+      </div>
+
+      <CtaBand title="Need more than one interior job done?" body="Combine painting, electrical, plumbing, carpentry, ceilings and flooring into one enquiry and one coordinated schedule." cta="Discuss Multiple Interior Works" message={multiWorksMessage} />
+    </PageShell>
+  )
+}

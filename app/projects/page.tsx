@@ -1,4 +1,20 @@
 import type { Metadata } from 'next'
-import { ContentPage } from '@/components/content-page'
-export const metadata: Metadata = { title: 'Project Experience | Vibroxi', description: 'Project case-study templates for commercial painting, wood finishing and property maintenance work. Verified details to be added before launch.', alternates: { canonical: '/projects' } }
-export default function ProjectsPage() { return <ContentPage eyebrow="Project experience" title="A place for verified project details—not invented case studies." intro="This page is structured for real project photographs, client-approved descriptions, measured scopes and outcomes to be added as they become available." sections={[{ title: 'Office repainting template', body: 'Add verified details such as property type, approximate area, work phases, surface condition, finish system and handover requirements.', items: ['Client name only with permission', 'Before-and-after photography only when approved'] }, { title: 'Commercial wood finishing template', body: 'Document joinery type, preparation method, sample approval process, finish selected and areas completed.', items: ['Record whether work was new or refinishing', 'Include material specifications only when confirmed'] }, { title: 'Multi-building maintenance template', body: 'Describe the number and type of locations, work-package approach, access coordination and recurring review cycle once verified.', items: ['Avoid unsupported counts or performance claims', 'Use clear placeholders until the project is publishable'] }]} /> }
+import { CtaBand, PageHero, PageShell } from '@/components/site'
+import { multiWorksMessage } from '@/lib/contact'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata: Metadata = pageMetadata({
+  title: 'Projects',
+  description: 'Vibroxi project records will be published with genuine photographs and client permission.',
+  path: '/projects',
+  indexable: false,
+})
+
+export default function ProjectsPage() {
+  return (
+    <PageShell>
+      <PageHero eyebrow="Projects" title="Project records will be published when verified" intro="This page is reserved for completed work with genuine photographs, accurate scope descriptions and permission to publish. No stock images or placeholder examples are presented as Vibroxi projects. It is excluded from search indexing until real case studies are added." breadcrumbs={[{ label: 'Projects', href: '/projects' }]} />
+      <CtaBand title="Ask about work similar to yours" cta="Discuss Your Interior Project" message={multiWorksMessage} />
+    </PageShell>
+  )
+}

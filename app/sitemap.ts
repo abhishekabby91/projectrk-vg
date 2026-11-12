@@ -1,2 +1,12 @@
 import type { MetadataRoute } from 'next'
-export default function sitemap(): MetadataRoute.Sitemap { const base = 'https://example.com'; const paths = ['', '/industries', '/project-delivery', '/projects', '/coverage', '/contact', '/services/commercial-painting-contractors-delhi-ncr', '/services/office-commercial-interior-painting', '/services/exterior-commercial-building-repainting', '/services/commercial-wood-polishing-refinishing', '/services/painting-contractors-facility-management', '/services/painting-subcontractor-interior-fit-out-contractors', '/services/housing-society-common-area-painting', '/services/commercial-painting-maintenance-programs']; return paths.map((path) => ({ url: `${base}${path}`, lastModified: new Date() })) }
+import { allRoutes } from '@/lib/routes'
+import { absoluteUrl, siteUrl } from '@/lib/site'
+
+// Only canonical, indexable pages. Pages for trades awaiting owner confirmation
+// (see lib/capabilities.ts) and /projects are excluded automatically.
+export default function sitemap(): MetadataRoute.Sitemap {
+  if (!siteUrl) return []
+  return allRoutes()
+    .filter((r) => r.indexable)
+    .map((r) => ({ url: absoluteUrl(r.path) }))
+}
